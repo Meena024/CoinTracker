@@ -1,0 +1,12 @@
+:root {
+  --base-color: rgb(253, 193, 81);
+}
+
+.card {
+  display: inline-block;
+  background-color: var(--base-color);
+  border-radius: 10px;
+  padding: 30px 60px;
+  align-items: center;
+  text-align: center;
+}

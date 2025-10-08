@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import Main from "./Components/Main";
 import WebFont from "webfontloader";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { BrowserRouter } from "react-router";
 
 function App() {
   useEffect(() => {
@@ -21,7 +23,11 @@ function App() {
       },
     });
   }, []);
-  return <Main />;
+  return (
+    <BrowserRouter>
+      <Main />
+    </BrowserRouter>
+  );
 }
 
 export default App;
