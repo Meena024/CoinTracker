@@ -1,0 +1,46 @@
+:root {
+  --base-color: rgb(253, 193, 81);
+  --contrast-color: black;
+}
+
+.head_dark {
+  background-color: var(--contrast-color);
+  color: var(--base-color);
+}
+
+.header {
+  font-family: "Times New Roman", Times, serif;
+  padding: 0px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: right;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.head_light {
+  background-color: var(--base-color);
+  color: var(--contrast-color);
+}
+
+.head_content {
+  padding: 0.5rem 2rem;
+  font-family: "Merriweather", serif;
+  display: flex;
+  justify-content: space-between;
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.head_content button {
+  background-color: var(--contrast-color);
+  border-radius: 15px;
+  color: var(--base-color);
+  border: 1px solid white;
+  padding: 10px;
+  font-weight: bolder;
+  font-size: larger;
+  font-family: "Franklin Gothic Medium";
+}
