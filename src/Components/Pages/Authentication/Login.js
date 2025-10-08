@@ -68,6 +68,16 @@ const Login = () => {
           Forgot Password?
         </button>
       </div>
+      <div style={{ marginTop: "8px" }}>
+        <button
+          type="button"
+          className="btn btn-link p-0 text-dark"
+          onClick={() => navigate("/SignUp")}
+        >
+          Create a new Account?
+          <div>SIGN UP</div>
+        </button>
+      </div>
     </>
   );
 };
