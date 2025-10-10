@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import form_classes from "../../UI/Form.module.css";
+import Card from "../../UI/Card";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -42,41 +43,50 @@ const ForgotPassword = () => {
     setLoading(false);
   };
   return (
-    <>
-      <h1>Forgot Password</h1>
-      <form onSubmit={resetPasswordHandler} className={form_classes.form}>
-        <div style={{ margin: "20px" }}>
-          <input
-            id="email"
-            type="email"
-            placeholder="E-Mail id"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            autoComplete="email"
-            required
-          />
-        </div>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center", // centers horizontally
+        alignItems: "center", // centers vertically
+        height: "70vh", // full viewport height
+      }}
+    >
+      <Card>
+        <h1>Forgot Password</h1>
+        <form onSubmit={resetPasswordHandler} className={form_classes.form}>
+          <div style={{ margin: "20px" }}>
+            <input
+              id="email"
+              type="email"
+              placeholder="E-Mail id"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              autoComplete="email"
+              required
+            />
+          </div>
 
-        <div style={{ margin: "5px" }}>
-          <button type="submit" disabled={loading}>
-            {loading ? "Loading..." : "Reset Password"}
+          <div style={{ margin: "5px" }}>
+            <button type="submit" disabled={loading}>
+              {loading ? "Loading..." : "Reset Password"}
+            </button>
+          </div>
+        </form>
+
+        {message && <p className="text-success mt-3 text-center">{message}</p>}
+        {error && <p className="text-danger mt-3 text-center">{error}</p>}
+
+        <div style={{ marginTop: "8px" }}>
+          <button
+            type="button"
+            className="btn btn-link p-0 text-dark"
+            onClick={() => navigate("/")}
+          >
+            Go back to Sign In?
           </button>
         </div>
-      </form>
-
-      {message && <p className="text-success mt-3 text-center">{message}</p>}
-      {error && <p className="text-danger mt-3 text-center">{error}</p>}
-
-      <div style={{ marginTop: "8px" }}>
-        <button
-          type="button"
-          className="btn btn-link p-0 text-dark"
-          onClick={() => navigate("/")}
-        >
-          Go back to Sign In?
-        </button>
-      </div>
-    </>
+      </Card>
+    </div>
   );
 };
 

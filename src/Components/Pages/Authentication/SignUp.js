@@ -1,6 +1,7 @@
 import form_classes from "../../UI/Form.module.css";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import Card from "../../UI/Card";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -80,63 +81,72 @@ const SignUp = () => {
   };
 
   return (
-    <>
-      <h1>Sign Up</h1>
-      <form onSubmit={signupHandler} className={form_classes.form}>
-        <div style={{ margin: "20px" }}>
-          <input
-            id="email"
-            type="email"
-            placeholder="E-Mail id"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            autoComplete="email"
-            required
-          />
-        </div>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center", // centers horizontally
+        alignItems: "center", // centers vertically
+        height: "70vh", // full viewport height
+      }}
+    >
+      <Card>
+        <h1>Sign Up</h1>
+        <form onSubmit={signupHandler} className={form_classes.form}>
+          <div style={{ margin: "20px" }}>
+            <input
+              id="email"
+              type="email"
+              placeholder="E-Mail id"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              autoComplete="email"
+              required
+            />
+          </div>
 
-        <div style={{ margin: "20px" }}>
-          <input
-            id="password"
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            autoComplete="current-password"
-            required
-          />
-        </div>
+          <div style={{ margin: "20px" }}>
+            <input
+              id="password"
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              autoComplete="current-password"
+              required
+            />
+          </div>
 
-        <div style={{ margin: "20px" }}>
-          <input
-            id="confirmPassword"
-            type="password"
-            placeholder="Confirm Password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            autoComplete="current-password"
-            required
-          />
-        </div>
+          <div style={{ margin: "20px" }}>
+            <input
+              id="confirmPassword"
+              type="password"
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              autoComplete="current-password"
+              required
+            />
+          </div>
 
-        {error && <div className="text-danger text-center m-2">{error}</div>}
+          {error && <div className="text-danger text-center m-2">{error}</div>}
 
-        <div style={{ margin: "5px" }}>
-          <button type="submit" disabled={loading}>
-            {loading ? "Logging in..." : "Sign Up"}
+          <div style={{ margin: "5px" }}>
+            <button type="submit" disabled={loading}>
+              {loading ? "Logging in..." : "Sign Up"}
+            </button>
+          </div>
+        </form>
+        <div style={{ marginTop: "8px" }}>
+          <button
+            type="button"
+            className="btn btn-link p-0 text-dark"
+            onClick={() => navigate("/")}
+          >
+            Already having an Account?<div>SIGN IN</div>
           </button>
         </div>
-      </form>
-      <div style={{ marginTop: "8px" }}>
-        <button
-          type="button"
-          className="btn btn-link p-0 text-dark"
-          onClick={() => navigate("/")}
-        >
-          Already having an Account?<div>SIGN IN</div>
-        </button>
-      </div>
-    </>
+      </Card>
+    </div>
   );
 };
 
