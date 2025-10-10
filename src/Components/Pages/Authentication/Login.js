@@ -10,14 +10,32 @@ const Login = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const loginHandler = (e) => {
+  const loginHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const login_details = {
-      email,
-      password,
-    };
-    console.log(login_details);
+    try {
+      const response = await fetch(
+        `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAdGYjLFC5DIrMp-l1ZEpgi-d1ntGdDqt0`,
+        {
+          method: "POST",
+          body: JSON.stringify({ email, password, returnSecureToken: true }),
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error?.message || "Login failed!");
+      }
+
+      localStorage.setItem("token", data.idToken);
+      localStorage.setItem("userId", data.localId);
+
+      navigate("/welcome");
+    } catch (err) {
+      setError(err.message);
+    }
     setEmail("");
     setPassword("");
     setLoading(false);
