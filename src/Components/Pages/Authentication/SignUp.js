@@ -11,16 +11,37 @@ const SignUp = () => {
 
   const navigate = useNavigate();
 
-  const signupHandler = (e) => {
+  const signupHandler = async (e) => {
     e.preventDefault();
     setError(null);
-    setLoading(true);
     if (password === confirmPassword) {
-      const signUp_details = {
-        email,
-        password,
-      };
-      console.log(signUp_details);
+      setLoading(true);
+      try {
+        const response = await fetch(
+          `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAdGYjLFC5DIrMp-l1ZEpgi-d1ntGdDqt0`,
+          {
+            method: "POST",
+            body: JSON.stringify({
+              email,
+              password,
+              returnSecureToken: true,
+            }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        const data = await response.json();
+        console.log("data", data);
+        console.log("response", response);
+        if (!response.ok) {
+          throw new Error(data.error.message || "Signup failed!");
+        }
+        navigate("/");
+      } catch (err) {
+        setError(err.message);
+      }
     } else {
       setError("Passwords doesn't match");
     }
