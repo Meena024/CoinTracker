@@ -33,11 +33,39 @@ const SignUp = () => {
         );
 
         const data = await response.json();
-        console.log("data", data);
-        console.log("response", response);
+
         if (!response.ok) {
           throw new Error(data.error.message || "Signup failed!");
         }
+
+        console.log("Sign Up Successfull! data:", data);
+
+        //Verify email id
+
+        const verify_response = await fetch(
+          `https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyAdGYjLFC5DIrMp-l1ZEpgi-d1ntGdDqt0`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              requestType: "VERIFY_EMAIL",
+              idToken: data.idToken,
+            }),
+          }
+        );
+
+        const verify_email = await verify_response.json();
+
+        if (!verify_response.ok) {
+          throw new Error(
+            verify_email.error.message || "Failed to send verification email!"
+          );
+        }
+
+        alert("Verification email sent successfully!");
+
         navigate("/");
       } catch (err) {
         setError(err.message);

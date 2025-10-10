@@ -7,14 +7,38 @@ const ForgotPassword = () => {
 
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState(null);
+  const [message, setMessage] = useState("");
   const [error, setError] = useState(null);
 
-  const resetPasswordHandler = (e) => {
+  const resetPasswordHandler = async (e) => {
     e.preventDefault();
-    setError(null);
     setLoading(true);
-    console.log(email);
+
+    try {
+      const response = await fetch(
+        `https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyAdGYjLFC5DIrMp-l1ZEpgi-d1ntGdDqt0`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            requestType: "PASSWORD_RESET",
+            email,
+          }),
+        }
+      );
+
+      const data = await response.json();
+      console.log(data, response);
+
+      if (!response.ok) {
+        throw new Error(data.error?.message || "Failed to send reset email!");
+      }
+
+      setMessage("Password reset link has been sent!");
+      setEmail("");
+    } catch (err) {
+      setError(err.message);
+    }
     setLoading(false);
   };
   return (
@@ -32,8 +56,6 @@ const ForgotPassword = () => {
             required
           />
         </div>
-
-        {error && <div className="text-danger text-center mt-2">{error}</div>}
 
         <div style={{ margin: "5px" }}>
           <button type="submit" disabled={loading}>
