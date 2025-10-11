@@ -3,6 +3,7 @@ import head_classes from "../../UI/Head.module.css";
 import { useNavigate } from "react-router-dom";
 import { AuthAction } from "../../Redux store/AuthSlice";
 import { useDispatch } from "react-redux";
+import { ModalActions } from "../../Redux store/ModalSlice";
 
 const Head = () => {
   const navigate = useNavigate();
@@ -24,6 +25,8 @@ const Head = () => {
 
   const editHandler = () => {
     console.log("edit button clicked!");
+    dispatch(ModalActions.setModalContent("EditProfile"));
+    dispatch(ModalActions.setModal());
   };
 
   return (
