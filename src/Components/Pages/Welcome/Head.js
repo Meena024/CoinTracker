@@ -1,18 +1,19 @@
 import edit_icon from "../../../Assets/Edit_icon1.png";
 import head_classes from "../../UI/Head.module.css";
 import { useNavigate } from "react-router-dom";
+import { AuthAction } from "../../Redux store/AuthSlice";
+import { useDispatch } from "react-redux";
 
 const Head = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const logoutHandler = async () => {
     try {
       console.log("logging out!");
 
       localStorage.removeItem("token");
-      localStorage.removeItem("refreshToken");
-      localStorage.removeItem("tokenExpiry");
-      localStorage.removeItem("userId");
+      dispatch(AuthAction.userLogOut());
 
       navigate("/");
       console.log("logged out successfully");

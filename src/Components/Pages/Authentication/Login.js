@@ -2,9 +2,12 @@ import { useState } from "react";
 import form_classes from "../../UI/Form.module.css";
 import { useNavigate } from "react-router";
 import Card from "../../UI/Card";
+import { AuthAction } from "../../Redux store/AuthSlice";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,6 +33,8 @@ const Login = () => {
     localStorage.setItem("token", data.id_token);
     localStorage.setItem("refreshToken", data.refresh_token);
     localStorage.setItem("tokenExpiry", Date.now() + data.expires_in * 1000);
+
+    dispatch(AuthAction.setIdToken(data.idToken));
 
     return data.id_token;
   }
@@ -68,7 +73,10 @@ const Login = () => {
       localStorage.setItem("token", data.idToken);
       localStorage.setItem("refreshToken", data.refreshToken);
       localStorage.setItem("tokenExpiry", Date.now() + data.expiresIn * 1000);
-      localStorage.setItem("userId", data.localId);
+
+      dispatch(AuthAction.userAuthenticated());
+      dispatch(AuthAction.setIdToken(data.idToken));
+      dispatch(AuthAction.setUserId(data.localId));
 
       scheduleTokenRefresh();
       navigate("/welcome");
