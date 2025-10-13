@@ -3,6 +3,7 @@ import Card from "../UI/Card";
 import form_classes from "../UI/Form.module.css";
 import { ModalActions } from "../Redux store/ModalSlice";
 import { useDispatch } from "react-redux";
+import { ProfileActiions } from "../Redux store/ProfileSlice";
 
 const EditProfile = () => {
   const dispatch = useDispatch();
@@ -12,10 +13,35 @@ const EditProfile = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const updateProfileHandler = (e) => {
+  const updateProfileHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
-    console.log("profile updation");
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(
+        `https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyAdGYjLFC5DIrMp-l1ZEpgi-d1ntGdDqt0`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            idToken: token,
+            displayName: name,
+            photoUrl: pictureUrl,
+            returnSecureToken: true,
+          }),
+        }
+      );
+      const data = await response.json();
+      console.log(data);
+      if (!response.ok) throw new Error(data.error.message || "Update failed");
+
+      dispatch(ProfileActiions.setName(name));
+      dispatch(ProfileActiions.setProfileUrl(pictureUrl));
+      dispatch(ModalActions.unsetModal());
+      console.log("Profile updated successfully!");
+    } catch (err) {
+      setError(err.message);
+    }
     setLoading(false);
   };
 
