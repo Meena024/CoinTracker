@@ -2,12 +2,15 @@ import edit_icon from "../../../Assets/Edit_icon1.png";
 import head_classes from "../../UI/Head.module.css";
 import { useNavigate } from "react-router-dom";
 import { AuthAction } from "../../Redux store/AuthSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ModalActions } from "../../Redux store/ModalSlice";
 
 const Head = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const name = useSelector((state) => state.profile.name);
+  const pictureUrl = useSelector((state) => state.profile.profileUrl);
 
   const logoutHandler = async () => {
     try {
@@ -35,7 +38,7 @@ const Head = () => {
         <span className="d-flex justifyContent gap-5">
           <span>
             <img
-              src="https://media.istockphoto.com/id/629653980/photo/snowman.jpg?s=612x612&w=0&k=20&c=Mbsnibgwa0VuiwcJQLrzchvPqWnI9GIYVFdGPttx4eE="
+              src={pictureUrl}
               alt="..."
               height={60}
               width={60}
@@ -43,7 +46,7 @@ const Head = () => {
             />
           </span>
           <span>
-            <h4>Hello,</h4>
+            <h4>Hello {name},</h4>
             <h6>When you track it, You control it.</h6>
           </span>
           <span>

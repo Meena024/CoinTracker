@@ -1,23 +1,39 @@
-import { useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import Card from "../UI/Card";
 import form_classes from "../UI/Form.module.css";
 import { ModalActions } from "../Redux store/ModalSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ProfileActiions } from "../Redux store/ProfileSlice";
 
 const EditProfile = () => {
   const dispatch = useDispatch();
 
-  const [name, setName] = useState("");
-  const [pictureUrl, setPictureUrl] = useState("");
+  const storedName = useSelector((state) => state.profile.name);
+  const storedPictureUrl = useSelector((state) => state.profile.profileUrl);
+
+  const nameRef = useRef();
+  const pictureUrlRef = useRef();
+
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (nameRef.current) nameRef.current.value = storedName || "";
+    if (pictureUrlRef.current)
+      pictureUrlRef.current.value = storedPictureUrl || "";
+  }, [storedName, storedPictureUrl]);
 
   const updateProfileHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setError(null);
+
+    const enteredName = nameRef.current.value.trim();
+    const enteredPictureUrl = pictureUrlRef.current.value.trim();
+
     try {
       const token = localStorage.getItem("token");
+
       const response = await fetch(
         `https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyAdGYjLFC5DIrMp-l1ZEpgi-d1ntGdDqt0`,
         {
@@ -25,24 +41,28 @@ const EditProfile = () => {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             idToken: token,
-            displayName: name,
-            photoUrl: pictureUrl,
+            displayName: enteredName,
+            photoUrl: enteredPictureUrl,
             returnSecureToken: true,
           }),
         }
       );
-      const data = await response.json();
-      console.log(data);
-      if (!response.ok) throw new Error(data.error.message || "Update failed");
 
-      dispatch(ProfileActiions.setName(name));
-      dispatch(ProfileActiions.setProfileUrl(pictureUrl));
+      const data = await response.json();
+      console.log("Update response:", data);
+
+      if (!response.ok) throw new Error(data.error?.message || "Update failed");
+
+      dispatch(ProfileActiions.setName(enteredName));
+      dispatch(ProfileActiions.setProfileUrl(enteredPictureUrl));
+
       dispatch(ModalActions.unsetModal());
       console.log("Profile updated successfully!");
     } catch (err) {
       setError(err.message);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
@@ -52,10 +72,9 @@ const EditProfile = () => {
         <div style={{ margin: "20px" }}>
           <input
             id="name"
-            type="name"
+            type="text"
             placeholder="Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            ref={nameRef}
             autoComplete="name"
             required
           />
@@ -64,10 +83,9 @@ const EditProfile = () => {
         <div style={{ margin: "20px" }}>
           <input
             id="pictureUrl"
-            type="pictureUrl"
+            type="text"
             placeholder="Profile Picture URL"
-            value={pictureUrl}
-            onChange={(e) => setPictureUrl(e.target.value)}
+            ref={pictureUrlRef}
             autoComplete="url"
             required
           />
