@@ -15,7 +15,7 @@ const ExpenseMain = () => {
     <>
       <div className={head_class.body_content}>
         <span>
-          <h1>Expenses</h1>
+          <h3>Transanctions</h3>
         </span>
         <span>
           <button onClick={addExpenseHandler}>+ Add Expense</button>

@@ -46,7 +46,7 @@
 }
 
 .body_content {
-  padding: 0.5rem 2rem;
+  padding-top: 2rem;
   font-family: "Merriweather", serif;
   display: flex;
   justify-content: space-between;
@@ -60,7 +60,7 @@
   border-radius: 15px;
   color: var(--base-color);
   border: 1px solid white;
-  padding: 10px;
+  padding: 8px;
   font-weight: bolder;
   font-size: larger;
   font-family: "Franklin Gothic Medium";

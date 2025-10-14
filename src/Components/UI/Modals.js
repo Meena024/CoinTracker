@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { ModalActions } from "../Redux store/ModalSlice";
 import EditProfile from "../Pages/User Profile/Head/EditProfile";
 import AddExpense from "../Pages/User Profile/Expenses/AddExpenseForm";
+import { ExpenseActions } from "../Redux store/ExpenseSlice";
 
 const Modals = () => {
   const dispatch = useDispatch();
@@ -21,13 +22,19 @@ const Modals = () => {
     }
   };
 
+  const closeModalHandler = () => {
+    if (modalContent === "AddExpense") {
+      dispatch(ExpenseActions.isEditExpense(false));
+      dispatch(ExpenseActions.setEdit_exp(null));
+    }
+
+    dispatch(ModalActions.unsetModal());
+  };
+
   return (
     <>
       {isModalVisible && (
-        <div
-          className="modal-overlay"
-          onClick={() => dispatch(ModalActions.unsetModal())}
-        >
+        <div className="modal-overlay" onClick={closeModalHandler}>
           <div onClick={(e) => e.stopPropagation()}>
             <Card>{renderContent()}</Card>
           </div>

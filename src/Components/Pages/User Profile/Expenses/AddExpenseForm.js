@@ -1,20 +1,38 @@
-import { useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { ModalActions } from "../../../Redux store/ModalSlice";
 import form_classes from "../../../UI/Form.module.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ExpenseActions } from "../../../Redux store/ExpenseSlice";
 
 const AddExpense = () => {
   const dispatch = useDispatch();
+  const isEdit = useSelector((state) => state.expense.isEdit);
+  const edit_exp = useSelector((state) => state.expense.edit_exp);
 
-  const dateRef = useRef();
-  const amountRef = useRef();
-  const descRef = useRef();
-  const categoryRef = useRef();
-  const isDebRef = useRef();
+  const [date, setDate] = useState("");
+  const [amount, setAmount] = useState("");
+  const [desc, setDesc] = useState("");
+  const [category, setCategory] = useState("");
+  const [type, setType] = useState("");
 
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (isEdit && edit_exp) {
+      setDate(edit_exp.date);
+      setAmount(edit_exp.amount);
+      setDesc(edit_exp.description);
+      setCategory(edit_exp.category);
+      setType(edit_exp.type);
+    } else {
+      setDate("");
+      setAmount("");
+      setDesc("");
+      setCategory("");
+      setType("");
+    }
+  }, [isEdit, edit_exp]);
 
   const addNewExpenseHandler = (e) => {
     e.preventDefault();
@@ -22,56 +40,71 @@ const AddExpense = () => {
     setLoading(true);
 
     const expenseDetails = {
-      date: dateRef.current.value.trim(),
-      amount: amountRef.current.value,
-      description: descRef.current.value,
-      category: categoryRef.current.value,
-      type: isDebRef.current.value,
+      id: isEdit ? edit_exp.id : Math.floor(Math.random() * 100),
+      date,
+      amount,
+      description: desc,
+      category,
+      type,
     };
-    dispatch(ExpenseActions.addExpense(expenseDetails));
+
+    if (isEdit) {
+      dispatch(ExpenseActions.editExpense(expenseDetails));
+    } else {
+      dispatch(ExpenseActions.addExpense(expenseDetails));
+    }
+
     console.log(expenseDetails);
+    dispatch(ExpenseActions.isEditExpense(false));
+    dispatch(ExpenseActions.setEdit_exp(null));
     dispatch(ModalActions.unsetModal());
     setLoading(false);
   };
+
+  const cancelHandler = () => {
+    dispatch(ExpenseActions.isEditExpense(false));
+    dispatch(ExpenseActions.setEdit_exp(null));
+    dispatch(ModalActions.unsetModal());
+    //clicking cancel works good. but if i try to edit and the close the modal by clicking the backdrop only the modal turns off.
+  };
   return (
     <>
-      <h1>Add Expense</h1>
+      {!isEdit && <h1>Add Transanction</h1>}
+      {isEdit && <h1>Edit Transaction</h1>}
       <form onSubmit={addNewExpenseHandler} className={form_classes.form}>
         <div style={{ margin: "20px" }}>
           <input
-            id="date"
             type="date"
-            placeholder="Date"
-            ref={dateRef}
-            autoComplete="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
             required
           />
         </div>
 
         <div style={{ margin: "20px" }}>
           <input
-            id="amount"
             type="number"
-            placeholder="Amount"
-            ref={amountRef}
-            autoComplete="transaction-amount"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
             required
           />
         </div>
 
         <div style={{ margin: "20px" }}>
           <input
-            id="description"
             type="text"
+            value={desc}
+            onChange={(e) => setDesc(e.target.value)}
             placeholder="Description"
-            ref={descRef}
-            autoComplete="text"
-            required
           />
         </div>
 
         <div style={{ margin: "20px" }}>
-          <select id="category" ref={categoryRef} required defaultValue="">
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            required
+          >
             <option value="" disabled>
               Select Category
             </option>
@@ -84,7 +117,11 @@ const AddExpense = () => {
         </div>
 
         <div style={{ margin: "20px" }}>
-          <select id="isCredit" ref={isDebRef} required defaultValue="">
+          <select
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+            required
+          >
             <option value="" disabled>
               Select Type
             </option>
@@ -103,14 +140,17 @@ const AddExpense = () => {
             gap: "2px",
           }}
         >
-          <button
-            type="button"
-            onClick={() => dispatch(ModalActions.unsetModal())}
-          >
+          <button type="button" onClick={cancelHandler}>
             Cancel
           </button>
           <button type="submit" disabled={loading}>
-            {loading ? "Adding new Expense..." : "Add Expense"}
+            {loading
+              ? isEdit
+                ? "Updating..."
+                : "Adding..."
+              : isEdit
+              ? "Update"
+              : "Add"}
           </button>
         </div>
       </form>
