@@ -26,13 +26,12 @@ const ProfileMain = () => {
       )
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           if (data.users && data.users[0]) {
             const user = data.users[0];
-            const name = user.displayName || "";
-            ProfileActiions.setName(name);
-            const pictureUrl = user.pictureUrl || "";
-            ProfileActiions.setProfileUrl(pictureUrl);
+            const name = user.displayName || null;
+            const pictureUrl = user.photoUrl || null; // Note: Firebase uses `photoUrl`, not `pictureUrl`
+            dispatch(ProfileActiions.setName(name));
+            dispatch(ProfileActiions.setProfileUrl(pictureUrl));
           }
         })
         .catch((err) => console.error("Failed to fetch user data", err));

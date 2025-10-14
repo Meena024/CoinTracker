@@ -1,6 +1,15 @@
 import head_class from "../../../UI/Head.module.css";
+import { ModalActions } from "../../../Redux store/ModalSlice";
+import { useDispatch } from "react-redux";
 
 const ExpenseMain = () => {
+  const dispatch = useDispatch();
+
+  const addExpenseHandler = () => {
+    dispatch(ModalActions.setModalContent("AddExpense"));
+    dispatch(ModalActions.setModal());
+  };
+
   return (
     <>
       <div className={head_class.body_content}>
@@ -8,7 +17,7 @@ const ExpenseMain = () => {
           <h1>Expenses</h1>
         </span>
         <span>
-          <button>+ Add Expense</button>
+          <button onClick={addExpenseHandler}>+ Add Expense</button>
         </span>
       </div>
       <h3 className="mt-3">

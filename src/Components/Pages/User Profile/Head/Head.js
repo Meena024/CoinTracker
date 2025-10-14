@@ -37,13 +37,15 @@ const Head = () => {
       <div className={head_classes.head_content}>
         <span className="d-flex justifyContent gap-5">
           <span>
-            <img
-              src={pictureUrl}
-              alt=""
-              height={60}
-              width={60}
-              className="rounded"
-            />
+            {pictureUrl && (
+              <img
+                src={pictureUrl}
+                alt=""
+                height={60}
+                width={60}
+                className="rounded"
+              />
+            )}
           </span>
           <span>
             <h4>Hello {name},</h4>

@@ -3,6 +3,7 @@ import Card from "./Card";
 import { useSelector, useDispatch } from "react-redux";
 import { ModalActions } from "../Redux store/ModalSlice";
 import EditProfile from "../Pages/User Profile/Head/EditProfile";
+import AddExpense from "../Pages/User Profile/Expenses/AddExpenseForm";
 
 const Modals = () => {
   const dispatch = useDispatch();
@@ -13,6 +14,8 @@ const Modals = () => {
     switch (modalContent) {
       case "EditProfile":
         return <EditProfile />;
+      case "AddExpense":
+        return <AddExpense />;
       default:
         return null;
     }
