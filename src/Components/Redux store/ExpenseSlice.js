@@ -29,6 +29,11 @@ const ExpenseSlice = createSlice({
     setEdit_exp: (state, action) => {
       state.edit_exp = action.payload;
     },
+    delete_exp: (state, action) => {
+      state.expenses = state.expenses.filter(
+        (exp) => exp.id !== action.payload
+      );
+    },
   },
 });
 

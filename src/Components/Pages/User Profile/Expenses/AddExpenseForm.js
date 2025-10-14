@@ -65,7 +65,15 @@ const AddExpense = () => {
     dispatch(ExpenseActions.isEditExpense(false));
     dispatch(ExpenseActions.setEdit_exp(null));
     dispatch(ModalActions.unsetModal());
-    //clicking cancel works good. but if i try to edit and the close the modal by clicking the backdrop only the modal turns off.
+  };
+
+  const deleteHandler = (id) => {
+    if (window.confirm("Are you sure you want to delete this expense?")) {
+      dispatch(ExpenseActions.delete_exp(id));
+      dispatch(ExpenseActions.isEditExpense(false));
+      dispatch(ExpenseActions.setEdit_exp(null));
+      dispatch(ModalActions.unsetModal());
+    }
   };
   return (
     <>
@@ -152,6 +160,11 @@ const AddExpense = () => {
               ? "Update"
               : "Add"}
           </button>
+          {isEdit && (
+            <button type="button" onClick={() => deleteHandler(edit_exp.id)}>
+              Delete
+            </button>
+          )}
         </div>
       </form>
     </>
