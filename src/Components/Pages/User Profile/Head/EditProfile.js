@@ -1,9 +1,9 @@
 import { useRef, useEffect, useState } from "react";
-import Card from "../UI/Card";
-import form_classes from "../UI/Form.module.css";
-import { ModalActions } from "../Redux store/ModalSlice";
+import Card from "../../../UI/Card";
+import form_classes from "../../../UI/Form.module.css";
+import { ModalActions } from "../../../Redux store/ModalSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { ProfileActiions } from "../Redux store/ProfileSlice";
+import { ProfileActiions } from "../../../Redux store/ProfileSlice";
 
 const EditProfile = () => {
   const dispatch = useDispatch();

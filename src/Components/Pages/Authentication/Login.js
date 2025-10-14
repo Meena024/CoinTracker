@@ -79,7 +79,7 @@ const Login = () => {
       dispatch(AuthAction.setUserId(data.localId));
 
       scheduleTokenRefresh();
-      navigate("/welcome");
+      navigate("/UserProfile");
     } catch (err) {
       setError(err.message);
     } finally {

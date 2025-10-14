@@ -1,11 +1,12 @@
-import Head from "./Head";
+import Head from "./Head/Head";
 import Modals from "../../UI/Modals";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { ProfileActiions } from "../../Redux store/ProfileSlice";
+import ExpenseMain from "./Expenses/ExpensesMain";
 
-const Welcome = () => {
+const ProfileMain = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -42,9 +43,9 @@ const Welcome = () => {
     <>
       <Head />
       <Modals />
-      <h1>Welcome</h1>
+      <ExpenseMain />
     </>
   );
 };
 
-export default Welcome;
+export default ProfileMain;

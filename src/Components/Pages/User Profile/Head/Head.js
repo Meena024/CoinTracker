@@ -1,9 +1,9 @@
-import edit_icon from "../../../Assets/Edit_icon1.png";
-import head_classes from "../../UI/Head.module.css";
+import edit_icon from "../../../../Assets/Edit_icon1.png";
+import head_classes from "../../../UI/Head.module.css";
 import { useNavigate } from "react-router-dom";
-import { AuthAction } from "../../Redux store/AuthSlice";
+import { AuthAction } from "../../../Redux store/AuthSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { ModalActions } from "../../Redux store/ModalSlice";
+import { ModalActions } from "../../../Redux store/ModalSlice";
 
 const Head = () => {
   const navigate = useNavigate();
@@ -39,7 +39,7 @@ const Head = () => {
           <span>
             <img
               src={pictureUrl}
-              alt="..."
+              alt=""
               height={60}
               width={60}
               className="rounded"

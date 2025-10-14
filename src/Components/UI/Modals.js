@@ -2,7 +2,7 @@ import "./Modals.css";
 import Card from "./Card";
 import { useSelector, useDispatch } from "react-redux";
 import { ModalActions } from "../Redux store/ModalSlice";
-import EditProfile from "../Pages/EditProfile";
+import EditProfile from "../Pages/User Profile/Head/EditProfile";
 
 const Modals = () => {
   const dispatch = useDispatch();

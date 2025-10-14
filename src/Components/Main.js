@@ -1,6 +1,6 @@
 import Header from "./Header";
 import { Route, Routes } from "react-router";
-import Welcome from "./Pages/Welcome/Welcome";
+import ProfileMain from "./Pages/User Profile/ProfileMain";
 import Login from "./Pages/Authentication/Login";
 import SignUp from "./Pages/Authentication/SignUp";
 import ForgotPassword from "./Pages/Authentication/ForgotPassword";
@@ -10,7 +10,7 @@ const Main = () => {
     <>
       <Header />
       <Routes>
-        <Route path="/Welcome" element={<Welcome />} />
+        <Route path="/UserProfile" element={<ProfileMain />} />
         <Route path="/ForgotPassword" element={<ForgotPassword />} />
         <Route path="/SignUp" element={<SignUp />} />
         <Route path="/ForgotPassword" element={<ForgotPassword />} />

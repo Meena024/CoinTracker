@@ -44,3 +44,35 @@
   font-size: larger;
   font-family: "Franklin Gothic Medium";
 }
+
+.body_content {
+  padding: 0.5rem 2rem;
+  font-family: "Merriweather", serif;
+  display: flex;
+  justify-content: space-between;
+  max-width: 700px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.body_content button {
+  background-color: var(--contrast-color);
+  border-radius: 15px;
+  color: var(--base-color);
+  border: 1px solid white;
+  padding: 10px;
+  font-weight: bolder;
+  font-size: larger;
+  font-family: "Franklin Gothic Medium";
+}
+
+.total_content {
+  padding: 0.5rem 2rem;
+  font-family: "Merriweather", serif;
+  display: flex;
+  justify-content: center;
+  max-width: 700px;
+  margin: 0 auto;
+  width: 100%;
+  gap: 100px;
+}
