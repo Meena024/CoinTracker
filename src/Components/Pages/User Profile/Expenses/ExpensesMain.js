@@ -1,6 +1,7 @@
 import head_class from "../../../UI/Head.module.css";
 import { ModalActions } from "../../../Redux store/ModalSlice";
 import { useDispatch } from "react-redux";
+import ExpenseListing from "./ExpensesListing";
 
 const ExpenseMain = () => {
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ const ExpenseMain = () => {
           margin: "0 auto",
         }}
       />
+      <ExpenseListing />
     </>
   );
 };

@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { ModalActions } from "../../../Redux store/ModalSlice";
 import form_classes from "../../../UI/Form.module.css";
 import { useDispatch } from "react-redux";
+import { ExpenseActions } from "../../../Redux store/ExpenseSlice";
 
 const AddExpense = () => {
   const dispatch = useDispatch();
@@ -27,13 +28,14 @@ const AddExpense = () => {
       category: categoryRef.current.value,
       type: isDebRef.current.value,
     };
-
+    dispatch(ExpenseActions.addExpense(expenseDetails));
     console.log(expenseDetails);
+    dispatch(ModalActions.unsetModal());
     setLoading(false);
   };
   return (
     <>
-      <h1>Add New Expense</h1>
+      <h1>Add Expense</h1>
       <form onSubmit={addNewExpenseHandler} className={form_classes.form}>
         <div style={{ margin: "20px" }}>
           <input
@@ -69,25 +71,26 @@ const AddExpense = () => {
         </div>
 
         <div style={{ margin: "20px" }}>
-          <input
-            id="category"
-            type="text"
-            placeholder="Category"
-            ref={categoryRef}
-            autoComplete="text"
-            required
-          />
+          <select id="category" ref={categoryRef} required defaultValue="">
+            <option value="" disabled>
+              Select Category
+            </option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Travel">Travel Expenses</option>
+            <option value="Education">Education</option>
+            <option value="Hospital">Hospital</option>
+            <option value="Salary">Salary</option>
+          </select>
         </div>
 
         <div style={{ margin: "20px" }}>
-          <input
-            id="isCredit"
-            type="text"
-            placeholder="Credit / Debit"
-            ref={isDebRef}
-            autoComplete="text"
-            required
-          />
+          <select id="isCredit" ref={isDebRef} required defaultValue="">
+            <option value="" disabled>
+              Select Type
+            </option>
+            <option value="Credit">Credit</option>
+            <option value="Debit">Debit</option>
+          </select>
         </div>
 
         {error && <div className="text-danger text-center mt-2">{error}</div>}
