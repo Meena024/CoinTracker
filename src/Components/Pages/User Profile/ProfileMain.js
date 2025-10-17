@@ -2,13 +2,16 @@ import Head from "./Head/Head";
 import Modals from "../../UI/Modals";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
-import { useDispatch } from "react-redux";
-import { ProfileActiions } from "../../Redux store/ProfileSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { ProfileActions } from "../../Redux store/ProfileSlice";
 import ExpenseMain from "./Expenses/ExpensesMain";
+import { ExpenseActions, firebaseUrl } from "../../Redux store/ExpenseSlice";
+import axios from "axios";
 
 const ProfileMain = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const userId = useSelector((state) => state.auth.userId);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -29,14 +32,32 @@ const ProfileMain = () => {
           if (data.users && data.users[0]) {
             const user = data.users[0];
             const name = user.displayName || null;
-            const pictureUrl = user.photoUrl || null; // Note: Firebase uses `photoUrl`, not `pictureUrl`
-            dispatch(ProfileActiions.setName(name));
-            dispatch(ProfileActiions.setProfileUrl(pictureUrl));
+            const pictureUrl = user.photoUrl || null;
+            dispatch(ProfileActions.setName(name));
+            dispatch(ProfileActions.setProfileUrl(pictureUrl));
           }
         })
         .catch((err) => console.error("Failed to fetch user data", err));
+      const fetchExpenses = async () => {
+        try {
+          console.log(userId);
+          const response = await axios.get(
+            `${firebaseUrl}/expenses/${userId}.json`
+          );
+          const data = response.data || {};
+          const expenses = Object.entries(data).map(([id, expense]) => ({
+            id,
+            ...expense,
+          }));
+          console.log(data, expenses);
+          dispatch(ExpenseActions.setExpenses(expenses));
+        } catch (err) {
+          console.error("Fetch failed", err);
+        }
+      };
+      fetchExpenses();
     }
-  }, [dispatch, navigate]);
+  }, [dispatch, navigate, userId]);
 
   return (
     <>

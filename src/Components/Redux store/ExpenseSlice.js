@@ -6,6 +6,9 @@ const initialState = {
   edit_exp: null,
 };
 
+export const firebaseUrl =
+  "https://expense-tracker-realtime-db-default-rtdb.firebaseio.com";
+
 const ExpenseSlice = createSlice({
   name: "Expense",
   initialState,

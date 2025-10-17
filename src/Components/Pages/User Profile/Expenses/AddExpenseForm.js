@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import { ModalActions } from "../../../Redux store/ModalSlice";
 import form_classes from "../../../UI/Form.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { ExpenseActions } from "../../../Redux store/ExpenseSlice";
+import { ExpenseActions, firebaseUrl } from "../../../Redux store/ExpenseSlice";
+import axios from "axios";
 
 const AddExpense = () => {
   const dispatch = useDispatch();
   const isEdit = useSelector((state) => state.expense.isEdit);
   const edit_exp = useSelector((state) => state.expense.edit_exp);
+  const userId = useSelector((state) => state.auth.userId);
 
   const [date, setDate] = useState("");
   const [amount, setAmount] = useState("");
@@ -34,7 +36,7 @@ const AddExpense = () => {
     }
   }, [isEdit, edit_exp]);
 
-  const addNewExpenseHandler = (e) => {
+  const addNewExpenseHandler = async (e) => {
     e.preventDefault();
     setError(null);
     setLoading(true);
@@ -47,7 +49,12 @@ const AddExpense = () => {
       category,
       type,
     };
+    console.log(userId);
 
+    await axios.put(
+      `${firebaseUrl}/expenses/${userId}/${expenseDetails.id}.json`,
+      expenseDetails
+    );
     if (isEdit) {
       dispatch(ExpenseActions.editExpense(expenseDetails));
     } else {

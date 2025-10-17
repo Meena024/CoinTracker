@@ -3,7 +3,7 @@ import Card from "../../../UI/Card";
 import form_classes from "../../../UI/Form.module.css";
 import { ModalActions } from "../../../Redux store/ModalSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { ProfileActiions } from "../../../Redux store/ProfileSlice";
+import { ProfileActions } from "../../../Redux store/ProfileSlice";
 
 const EditProfile = () => {
   const dispatch = useDispatch();
@@ -53,8 +53,8 @@ const EditProfile = () => {
 
       if (!response.ok) throw new Error(data.error?.message || "Update failed");
 
-      dispatch(ProfileActiions.setName(enteredName));
-      dispatch(ProfileActiions.setProfileUrl(enteredPictureUrl));
+      dispatch(ProfileActions.setName(enteredName));
+      dispatch(ProfileActions.setProfileUrl(enteredPictureUrl));
 
       dispatch(ModalActions.unsetModal());
       console.log("Profile updated successfully!");
