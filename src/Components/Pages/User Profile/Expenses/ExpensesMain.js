@@ -1,11 +1,13 @@
 import head_class from "../../../UI/Head.module.css";
 import { ModalActions } from "../../../Redux store/ModalSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ExpenseListing from "./ExpensesListing";
-import Card from "../../../UI/Card";
+import { MiscActions } from "../../../Redux store/MiscSlice";
+import Switch from "@mui/material/Switch";
 
 const ExpenseMain = () => {
   const dispatch = useDispatch();
+  const darkMode = useSelector((state) => state.misc.darkMode);
 
   const addExpenseHandler = () => {
     dispatch(ModalActions.setModalContent("AddExpense"));
@@ -16,10 +18,19 @@ const ExpenseMain = () => {
     <>
       <div className={head_class.body_content}>
         <span>
-          <h3>Transanctions</h3>
+          <h1>Transanctions</h1>
         </span>
         <span>
-          <button onClick={addExpenseHandler}>+ Add Expense</button>
+          <button onClick={addExpenseHandler}>Add Transaction</button>
+        </span>
+        <span>
+          {" "}
+          Dark
+          <Switch
+            onChange={(e) => dispatch(MiscActions.setDarkMode())}
+            color="success"
+          />{" "}
+          Light
         </span>
       </div>
       <div
@@ -27,27 +38,10 @@ const ExpenseMain = () => {
           display: "flex",
           justifyContent: "center", // centers horizontally
           alignItems: "center", // centers vertically
-          // height: "70vh", // full viewport height
-          // width: "50rem",
           marginTop: "50px",
         }}
       >
-        <Card>
-          <h3 className="mt-3">
-            <div className={head_class.total_content}>
-              <span>Total:</span>
-              <span>$123</span>
-            </div>
-          </h3>
-          <hr
-            style={{
-              borderTop: "4px solid black",
-              maxWidth: "1000px",
-              margin: "0 auto",
-            }}
-          />
-          <ExpenseListing />
-        </Card>
+        <ExpenseListing />
       </div>
     </>
   );

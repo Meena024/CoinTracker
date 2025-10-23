@@ -6,7 +6,6 @@ import { ExpenseActions } from "../../../Redux store/ExpenseSlice";
 
 const ExpenseLayout = ({ trans }) => {
   const dispatch = useDispatch();
-  console.log(trans);
 
   const date = new Date(trans.date);
 
