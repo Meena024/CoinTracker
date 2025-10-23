@@ -2,6 +2,7 @@ import head_class from "../../../UI/Head.module.css";
 import { ModalActions } from "../../../Redux store/ModalSlice";
 import { useDispatch } from "react-redux";
 import ExpenseListing from "./ExpensesListing";
+import Card from "../../../UI/Card";
 
 const ExpenseMain = () => {
   const dispatch = useDispatch();
@@ -21,20 +22,33 @@ const ExpenseMain = () => {
           <button onClick={addExpenseHandler}>+ Add Expense</button>
         </span>
       </div>
-      <h3 className="mt-3">
-        <div className={head_class.total_content}>
-          <span>Total:</span>
-          <span>$123</span>
-        </div>
-      </h3>
-      <hr
+      <div
         style={{
-          borderTop: "4px solid black",
-          maxWidth: "1000px",
-          margin: "0 auto",
+          display: "flex",
+          justifyContent: "center", // centers horizontally
+          alignItems: "center", // centers vertically
+          // height: "70vh", // full viewport height
+          // width: "50rem",
+          marginTop: "50px",
         }}
-      />
-      <ExpenseListing />
+      >
+        <Card>
+          <h3 className="mt-3">
+            <div className={head_class.total_content}>
+              <span>Total:</span>
+              <span>$123</span>
+            </div>
+          </h3>
+          <hr
+            style={{
+              borderTop: "4px solid black",
+              maxWidth: "1000px",
+              margin: "0 auto",
+            }}
+          />
+          <ExpenseListing />
+        </Card>
+      </div>
     </>
   );
 };

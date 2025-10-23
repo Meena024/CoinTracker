@@ -45,7 +45,7 @@ const AddExpense = () => {
       id: isEdit ? edit_exp.id : Math.floor(Math.random() * 100),
       date,
       amount,
-      description: desc,
+      description: desc.charAt(0).toUpperCase() + desc.slice(1),
       category,
       type,
     };
@@ -74,8 +74,9 @@ const AddExpense = () => {
     dispatch(ModalActions.unsetModal());
   };
 
-  const deleteHandler = (id) => {
+  const deleteHandler = async (id) => {
     if (window.confirm("Are you sure you want to delete this expense?")) {
+      await axios.delete(`${firebaseUrl}/expenses/${userId}/${id}.json`);
       dispatch(ExpenseActions.delete_exp(id));
       dispatch(ExpenseActions.isEditExpense(false));
       dispatch(ExpenseActions.setEdit_exp(null));

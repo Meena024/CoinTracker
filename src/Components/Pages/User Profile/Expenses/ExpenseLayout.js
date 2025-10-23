@@ -10,7 +10,7 @@ const ExpenseLayout = ({ trans }) => {
 
   const date = new Date(trans.date);
 
-  const exp_class =
+  const exp_amount =
     trans.type === "Debit"
       ? expense_classes.expense_deb
       : expense_classes.expense_cred;
@@ -24,12 +24,27 @@ const ExpenseLayout = ({ trans }) => {
   };
 
   return (
-    <div className={exp_class} onClick={() => editExpense(trans)}>
+    <div className={expense_classes.expense} onClick={() => editExpense(trans)}>
       <Row>
         <Col>
           <div>
-            <span style={{ fontWeight: "bold" }}>{trans.category}</span> /{" "}
-            {trans.description ? trans.description : "-"}
+            <span
+              style={{
+                fontSize: "20px",
+                fontWeight: "bold",
+              }}
+            >
+              {trans.category}
+            </span>{" "}
+            /{" "}
+            <span
+              style={{
+                fontStyle: "italic",
+                fontSize: "15px",
+              }}
+            >
+              {trans.description ? trans.description : "-"}
+            </span>
           </div>
           <div>
             {date.getDate()} {date.toLocaleString("default", { month: "long" })}{" "}
@@ -38,15 +53,7 @@ const ExpenseLayout = ({ trans }) => {
           </div>
         </Col>
         <Col>
-          <div
-            style={{
-              textAlign: "right",
-              fontSize: "25px",
-              fontWeight: "bolder",
-            }}
-          >
-            ${trans.amount}
-          </div>
+          <div className={exp_amount}>$ {trans.amount}</div>
         </Col>
       </Row>
     </div>
