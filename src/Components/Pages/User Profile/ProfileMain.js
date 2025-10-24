@@ -14,7 +14,7 @@ const ProfileMain = () => {
   const userId = useSelector((state) => state.auth.userId);
   const darkMode = useSelector((state) => state.misc.darkMode);
 
-  const bg_color = !darkMode ? "aliceblue" : "palegoldenrod";
+  const bg_color = !darkMode ? "rgba(0,0,0,0.5)" : "palegoldenrod";
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -58,6 +58,7 @@ const ProfileMain = () => {
               expenses.sort((A, B) => new Date(A.date) - new Date(B.date))
             )
           );
+          dispatch(ExpenseActions.setFilteredExpenses(expenses));
         } catch (err) {
           console.error("Fetch failed", err);
         }
@@ -67,7 +68,13 @@ const ProfileMain = () => {
   }, [dispatch, navigate, userId]);
 
   return (
-    <div style={{ backgroundColor: bg_color, paddingBottom: "10%" }}>
+    <div
+      style={{
+        backgroundColor: bg_color,
+        paddingBottom: "10%",
+        minHeight: "100vh",
+      }}
+    >
       <Head />
       <Modals />
       <ExpenseMain />

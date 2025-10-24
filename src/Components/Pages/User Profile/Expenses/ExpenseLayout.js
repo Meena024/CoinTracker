@@ -29,7 +29,7 @@ const ExpenseLayout = ({ trans }) => {
           <div>
             <span
               style={{
-                fontSize: "20px",
+                fontSize: "25px",
                 fontWeight: "bold",
               }}
             >
@@ -39,7 +39,7 @@ const ExpenseLayout = ({ trans }) => {
             <span
               style={{
                 fontStyle: "italic",
-                fontSize: "15px",
+                fontSize: "20px",
               }}
             >
               {trans.description ? trans.description : "-"}

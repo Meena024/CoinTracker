@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   expenses: [],
+  filteredExpenses: [],
   isEdit: false,
   edit_exp: null,
 };
@@ -16,15 +17,25 @@ const ExpenseSlice = createSlice({
     setExpenses: (state, action) => {
       state.expenses = action.payload;
     },
+    setFilteredExpenses: (state, action) => {
+      state.filteredExpenses = action.payload;
+    },
     addExpense: (state, action) => {
       state.expenses = [...state.expenses, action.payload];
       state.expenses.sort((a, b) => new Date(b.date) - new Date(a.date));
+      state.filteredExpenses = state.expenses;
     },
     editExpense: (state, action) => {
       state.expenses = state.expenses
         .filter((exp) => exp.id !== action.payload.id)
         .concat(action.payload);
       state.expenses.sort((a, b) => new Date(b.date) - new Date(a.date));
+      state.filteredExpenses = state.filteredExpenses
+        .filter((exp) => exp.id !== action.payload.id)
+        .concat(action.payload);
+      state.filteredExpenses.sort(
+        (a, b) => new Date(b.date) - new Date(a.date)
+      );
     },
     isEditExpense: (state, action) => {
       state.isEdit = action.payload;
@@ -34,6 +45,9 @@ const ExpenseSlice = createSlice({
     },
     delete_exp: (state, action) => {
       state.expenses = state.expenses.filter(
+        (exp) => exp.id !== action.payload
+      );
+      state.filteredExpenses = state.filteredExpenses.filter(
         (exp) => exp.id !== action.payload
       );
     },

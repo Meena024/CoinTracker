@@ -61,7 +61,6 @@ const AddExpense = () => {
       dispatch(ExpenseActions.addExpense(expenseDetails));
     }
 
-    console.log(expenseDetails);
     dispatch(ExpenseActions.isEditExpense(false));
     dispatch(ExpenseActions.setEdit_exp(null));
     dispatch(ModalActions.unsetModal());
