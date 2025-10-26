@@ -12,6 +12,11 @@ const Filter = () => {
   const [category, setCategory] = useState("");
   const [dateRange, setDateRange] = useState({ start: "", end: "" });
   const [dateError, setDateError] = useState("");
+  const [year, setYear] = useState("");
+
+  const years = Array.from(
+    new Set(expenses.map((exp) => new Date(exp.date).getFullYear()))
+  ).sort((a, b) => b - a);
 
   useEffect(() => {
     if (filter === "category" && category) {
@@ -45,6 +50,15 @@ const Filter = () => {
     }
   }, [dateRange, filter, expenses, dispatch]);
 
+  useEffect(() => {
+    if (filter === "year" && year) {
+      const filteredExpenses = expenses.filter(
+        (exp) => new Date(exp.date).getFullYear() === Number(year)
+      );
+      dispatch(ExpenseActions.setFilteredExpenses(filteredExpenses));
+    }
+  }, [year, filter, expenses, dispatch]);
+
   return (
     <div className={expense_class.filter}>
       <select
@@ -56,14 +70,18 @@ const Filter = () => {
           setCategory("");
           setDateRange({ start: "", end: "" });
           setDateError("");
+          setYear("");
+          dispatch(ExpenseActions.setFilteredExpenses(expenses));
         }}
         className={expense_class.filter_select}
       >
         <option value="" disabled>
           Filter By
         </option>
+        <option value="All">No Filter</option>
         <option value="category">Category</option>
         <option value="custom">Custom Range</option>
+        <option value="year">Year</option>
       </select>
 
       {filter === "category" && (
@@ -75,7 +93,6 @@ const Filter = () => {
           <option value="" disabled>
             Select Category
           </option>
-          <option value="All">All</option>
           <option value="Entertainment">Entertainment</option>
           <option value="Travel">Travel</option>
           <option value="Education">Education</option>
@@ -118,6 +135,23 @@ const Filter = () => {
             </p>
           )}
         </form>
+      )}
+
+      {filter === "year" && (
+        <select
+          value={year}
+          onChange={(e) => setYear(e.target.value)}
+          className={expense_class.filter_select}
+        >
+          <option value="" disabled>
+            Select Year
+          </option>
+          {years.map((yr) => (
+            <option key={yr} value={yr}>
+              {yr}
+            </option>
+          ))}
+        </select>
       )}
     </div>
   );

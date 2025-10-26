@@ -28,7 +28,7 @@ const ExpenseListing = () => {
     <Card>
       <h3 className="mt-3">
         <div className={expense_class.total_content}>
-          <span>Balance:</span>
+          <span>Net Balance:</span>
           <span className={total_class}>$ {Math.abs(totalAmount)}</span>
         </div>
 
