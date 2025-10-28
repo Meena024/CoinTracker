@@ -26,6 +26,7 @@ const Filter = () => {
           : expenses.filter((exp) => exp.category === category);
 
       dispatch(ExpenseActions.setFilteredExpenses(filteredExpenses));
+      dispatch(ExpenseActions.setSearchedExpenses(filteredExpenses));
     }
   }, [category, filter, expenses, dispatch]);
 
@@ -47,6 +48,7 @@ const Filter = () => {
       });
 
       dispatch(ExpenseActions.setFilteredExpenses(filteredExpenses));
+      dispatch(ExpenseActions.setSearchedExpenses(filteredExpenses));
     }
   }, [dateRange, filter, expenses, dispatch]);
 
@@ -56,6 +58,7 @@ const Filter = () => {
         (exp) => new Date(exp.date).getFullYear() === Number(year)
       );
       dispatch(ExpenseActions.setFilteredExpenses(filteredExpenses));
+      dispatch(ExpenseActions.setSearchedExpenses(filteredExpenses));
     }
   }, [year, filter, expenses, dispatch]);
 
@@ -63,6 +66,7 @@ const Filter = () => {
     if (filter === "Credit" || filter === "Debit") {
       const filteredExpenses = expenses.filter((exp) => exp.type === filter);
       dispatch(ExpenseActions.setFilteredExpenses(filteredExpenses));
+      dispatch(ExpenseActions.setSearchedExpenses(filteredExpenses));
     }
   }, [filter, expenses, dispatch]);
 

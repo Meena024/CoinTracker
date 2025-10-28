@@ -52,7 +52,7 @@ const ExpenseLayout = ({ trans }) => {
           </div>
         </Col>
         <Col>
-          <div className={exp_amount}>$ {trans.amount}</div>
+          <div className={exp_amount}>₹ {trans.amount}</div>
         </Col>
       </Row>
     </div>

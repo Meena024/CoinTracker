@@ -8,15 +8,15 @@ import { ModalActions } from "../../../Redux store/ModalSlice";
 const ExpenseListing = () => {
   const dispatch = useDispatch();
 
-  const filteredExpenses = useSelector(
-    (state) => state.expense.filteredExpenses
+  const searchedExpenses = useSelector(
+    (state) => state.expense.searchedExpenses
   );
 
-  const expense_list = filteredExpenses.map((exp) => (
+  const expense_list = searchedExpenses.map((exp) => (
     <ExpenseLayout key={exp.id} trans={exp} />
   ));
 
-  const totalAmount = filteredExpenses.reduce(
+  const totalAmount = searchedExpenses.reduce(
     (acc, curr) =>
       curr.type === "Credit"
         ? acc + Number(curr.amount)
@@ -34,18 +34,19 @@ const ExpenseListing = () => {
 
   return (
     <Card>
-      <h3 className="mt-3">
+      <h3>
         <div className={expense_class.total_content}>
-          <span>Net Balance:</span>
-          <span className={total_class}>$ {Math.abs(totalAmount)}</span>{" "}
           <span>
-            <button onClick={chartHandler}>Chart</button>
+            <Filter />
           </span>
         </div>
 
         <div className={expense_class.total_content}>
+          <span>Net Balance:</span>
+          <span className={total_class}>₹ {Math.abs(totalAmount)}</span>
+
           <span>
-            <Filter />
+            <button onClick={chartHandler}>Chart</button>
           </span>
         </div>
       </h3>
@@ -58,7 +59,8 @@ const ExpenseListing = () => {
           margin: "0 auto",
         }}
       />
-      {filteredExpenses.length === 0 && (
+
+      {searchedExpenses.length === 0 && (
         <h2
           style={{
             minHeight: "200px",

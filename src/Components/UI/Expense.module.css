@@ -22,6 +22,9 @@
   font-size: xx-large;
   font-weight: 800;
   font-style: italic;
+  display: inline-flex;
+  align-items: baseline;
+  white-space: nowrap;
 }
 
 .expense_deb {
@@ -30,6 +33,9 @@
   font-size: xx-large;
   font-weight: 800;
   font-style: italic;
+  display: inline-flex;
+  align-items: baseline;
+  white-space: nowrap;
 }
 
 .total_content {
@@ -37,10 +43,13 @@
   font-family: "Merriweather", serif;
   display: flex;
   justify-content: center;
+  align-items: center;
+  /* flex-wrap: wrap; still allows other elements to wrap if needed */
   max-width: 1500px;
   margin: 0 auto;
   width: 100%;
   gap: 100px;
+  white-space: nowrap; /* prevent line breaks inside */
 }
 
 .total_content button {
@@ -67,6 +76,7 @@
   margin: 3%;
 }
 
+.total_content input,
 .filter input {
   background-color: rgb(251, 251, 196);
   border: 1px solid black;
@@ -77,4 +87,11 @@
   width: 175px;
   box-sizing: border-box;
   padding: 5px 20px;
+}
+
+.total_content span {
+  display: inline-flex;
+  align-items: center;
+  /* gap: 3px; */
+  min-width: fit-content; /* ensure elements don't shrink */
 }

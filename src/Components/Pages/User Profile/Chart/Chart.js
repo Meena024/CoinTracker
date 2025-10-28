@@ -3,12 +3,10 @@ import MyPieChart from "./PieChart";
 import styles from "./../../../UI/Chart.module.css";
 
 const Chart = () => {
-  const filteredExpenses = useSelector(
-    (state) => state.expense.filteredExpenses
-  );
+  const chartData = useSelector((state) => state.expense.searchedExpenses);
 
-  const creditData = filteredExpenses.filter((exp) => exp.type === "Credit");
-  const debitData = filteredExpenses.filter((exp) => exp.type === "Debit");
+  const creditData = chartData.filter((exp) => exp.type === "Credit");
+  const debitData = chartData.filter((exp) => exp.type === "Debit");
 
   const aggregateByCategory = (data) =>
     Object.entries(
