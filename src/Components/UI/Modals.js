@@ -5,6 +5,7 @@ import { ModalActions } from "../Redux store/ModalSlice";
 import EditProfile from "../Pages/User Profile/Head/EditProfile";
 import AddExpense from "../Pages/User Profile/Expenses/AddExpenseForm";
 import { ExpenseActions } from "../Redux store/ExpenseSlice";
+import Chart from "../Pages/User Profile/Chart/Chart";
 
 const Modals = () => {
   const dispatch = useDispatch();
@@ -17,6 +18,8 @@ const Modals = () => {
         return <EditProfile />;
       case "AddExpense":
         return <AddExpense />;
+      case "Chart":
+        return <Chart />;
       default:
         return null;
     }

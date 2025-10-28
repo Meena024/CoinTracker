@@ -1,10 +1,13 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ExpenseLayout from "./ExpenseLayout";
 import expense_class from "./../../../UI/Expense.module.css";
 import Card from "../../../UI/Card";
 import Filter from "./Filter";
+import { ModalActions } from "../../../Redux store/ModalSlice";
 
 const ExpenseListing = () => {
+  const dispatch = useDispatch();
+
   const filteredExpenses = useSelector(
     (state) => state.expense.filteredExpenses
   );
@@ -24,12 +27,20 @@ const ExpenseListing = () => {
   const total_class =
     totalAmount < 0 ? expense_class.expense_deb : expense_class.expense_cred;
 
+  const chartHandler = () => {
+    dispatch(ModalActions.setModalContent("Chart"));
+    dispatch(ModalActions.setModal());
+  };
+
   return (
     <Card>
       <h3 className="mt-3">
         <div className={expense_class.total_content}>
           <span>Net Balance:</span>
-          <span className={total_class}>$ {Math.abs(totalAmount)}</span>
+          <span className={total_class}>$ {Math.abs(totalAmount)}</span>{" "}
+          <span>
+            <button onClick={chartHandler}>Chart</button>
+          </span>
         </div>
 
         <div className={expense_class.total_content}>

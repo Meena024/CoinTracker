@@ -43,6 +43,18 @@
   gap: 100px;
 }
 
+.total_content button {
+  background-color: var(--contrast-color);
+  border-radius: 10px;
+  color: var(--base-color);
+  border: 1px solid white;
+  padding: 5px 20px;
+  font-weight: bolder;
+  font-size: large;
+  font-family: "lato";
+  margin: 3%;
+}
+
 .filter select {
   background-color: var(--contrast-color);
   border-radius: 10px;

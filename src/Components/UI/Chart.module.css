@@ -1,0 +1,84 @@
+.chartContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.chartBox {
+  border: 1px solid #f1f1f1ff;
+  border-radius: 16px;
+  padding: 20px;
+  background-color: black;
+  flex: 1;
+  flex-direction: column;
+  height: 450px;
+}
+
+.chartTitle {
+  color: rgb(253, 193, 81);
+  padding: 0 80px;
+  text-align: center;
+}
+
+.noData {
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
+  text-align: center;
+}
+
+.tooltip {
+  background-color: black;
+  border-radius: 15px;
+}
+
+.summaryContainer {
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.5rem;
+  color: rgb(253, 193, 81);
+  display: flex;
+  flex-direction: column;
+  background-color: #111;
+  border-radius: 15px;
+  border: 1px solid white;
+  padding: 5px 20px;
+}
+
+.summaryRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.summaryRow label {
+  text-align: left;
+}
+
+.debit {
+  text-align: right;
+  font-weight: bold;
+  color: rgb(172, 12, 12);
+}
+
+.credit {
+  text-align: right;
+  font-weight: bold;
+  color: rgb(0, 124, 47);
+}
+
+@media (max-width: 768px) {
+  .summaryContainer {
+    width: 90%;
+    font-size: 1.2rem;
+  }
+
+  .summaryRow {
+    grid-template-columns: 1fr 1fr;
+    padding: 8px 12px;
+  }
+}

@@ -59,6 +59,13 @@ const Filter = () => {
     }
   }, [year, filter, expenses, dispatch]);
 
+  useEffect(() => {
+    if (filter === "Credit" || filter === "Debit") {
+      const filteredExpenses = expenses.filter((exp) => exp.type === filter);
+      dispatch(ExpenseActions.setFilteredExpenses(filteredExpenses));
+    }
+  }, [filter, expenses, dispatch]);
+
   return (
     <div className={expense_class.filter}>
       <select
@@ -82,6 +89,8 @@ const Filter = () => {
         <option value="category">Category</option>
         <option value="custom">Custom Range</option>
         <option value="year">Year</option>
+        <option value="Credit">Credit</option>
+        <option value="Debit">Debit</option>
       </select>
 
       {filter === "category" && (
