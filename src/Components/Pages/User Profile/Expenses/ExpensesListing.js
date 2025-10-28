@@ -4,9 +4,11 @@ import expense_class from "./../../../UI/Expense.module.css";
 import Card from "../../../UI/Card";
 import Filter from "./Filter";
 import { ModalActions } from "../../../Redux store/ModalSlice";
+import { useState } from "react";
 
 const ExpenseListing = () => {
   const dispatch = useDispatch();
+  const [isPremium, setPremium] = useState(false);
 
   const searchedExpenses = useSelector(
     (state) => state.expense.searchedExpenses
@@ -32,6 +34,31 @@ const ExpenseListing = () => {
     dispatch(ModalActions.setModal());
   };
 
+  const downloadHandler = () => {
+    const csvRows = [
+      ["Date", "Amount", "Category", "Description", "Type"],
+      ...searchedExpenses.map(
+        ({ date, amount, category, description, type }) => [
+          date,
+          amount,
+          category,
+          description,
+          type,
+        ]
+      ),
+    ];
+
+    const csvContent = csvRows.map((row) => row.join(",")).join("\n");
+    const blob = new Blob([csvContent], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "expenses.csv";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };
+
   return (
     <Card>
       <h3>
@@ -39,15 +66,22 @@ const ExpenseListing = () => {
           <span>
             <Filter />
           </span>
+          <span>
+            <button onClick={chartHandler}>Chart</button>
+          </span>
         </div>
 
         <div className={expense_class.total_content}>
           <span>Net Balance:</span>
           <span className={total_class}>₹ {Math.abs(totalAmount)}</span>
-
           <span>
-            <button onClick={chartHandler}>Chart</button>
-          </span>
+            {!isPremium && (
+              <button onClick={() => setPremium(true)}>Buy Premium</button>
+            )}
+            {isPremium && (
+              <button onClick={() => downloadHandler()}>Download</button>
+            )}
+          </span>{" "}
         </div>
       </h3>
 
