@@ -7,6 +7,7 @@ import { ProfileActions } from "../../Redux store/ProfileSlice";
 import ExpenseMain from "./Expenses/ExpensesMain";
 import { ExpenseActions, firebaseUrl } from "../../Redux store/ExpenseSlice";
 import axios from "axios";
+import classes from "./../../UI/Head.module.css";
 
 const ProfileMain = () => {
   const navigate = useNavigate();
@@ -69,10 +70,9 @@ const ProfileMain = () => {
 
   return (
     <div
+      className={classes.profile}
       style={{
         backgroundColor: bg_color,
-        paddingBottom: "10%",
-        minHeight: "100vh",
       }}
     >
       <Head />

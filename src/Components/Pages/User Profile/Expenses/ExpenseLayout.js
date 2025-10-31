@@ -23,39 +23,39 @@ const ExpenseLayout = ({ trans }) => {
   };
 
   return (
-    <div className={expense_classes.expense} onClick={() => editExpense(trans)}>
-      <Row>
-        <Col>
-          <div>
-            <span
-              style={{
-                fontSize: "25px",
-                fontWeight: "bold",
-              }}
-            >
-              {trans.category}
-            </span>{" "}
-            /{" "}
+    <Row className={expense_classes.expense} onClick={() => editExpense(trans)}>
+      <Col xs={9}>
+        <div>
+          <span
+            style={{
+              fontWeight: "bold",
+              fontSize: "25px",
+            }}
+          >
+            {trans.category}
+          </span>
+          {trans.description ? (
             <span
               style={{
                 fontStyle: "italic",
                 fontSize: "20px",
               }}
             >
-              {trans.description ? trans.description : "-"}
+              {" "}
+              / {trans.description}
             </span>
-          </div>
-          <div>
-            {date.getDate()} {date.toLocaleString("default", { month: "long" })}{" "}
-            {date.getFullYear()} (
-            {date.toLocaleDateString("en-US", { weekday: "long" })})
-          </div>
-        </Col>
-        <Col>
-          <div className={exp_amount}>₹ {trans.amount}</div>
-        </Col>
-      </Row>
-    </div>
+          ) : (
+            ""
+          )}
+        </div>
+        <div>
+          {date.getDate()} {date.toLocaleString("default", { month: "long" })}{" "}
+          {date.getFullYear()} (
+          {date.toLocaleDateString("en-US", { weekday: "long" })})
+        </div>
+      </Col>
+      <Col className={exp_amount}>₹ {trans.amount}</Col>
+    </Row>
   );
 };
 

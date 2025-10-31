@@ -6,6 +6,7 @@
 .head_dark {
   background-color: var(--contrast-color);
   color: var(--base-color);
+  min-width: 1000px;
 }
 
 .header {
@@ -32,20 +33,6 @@
   min-width: 1000px;
   max-width: 1200px;
   margin: 0 auto;
-  width: 100%;
-  flex-wrap: nowrap;
-  flex-shrink: 0;
-}
-
-.head_content button {
-  background-color: var(--contrast-color);
-  border-radius: 15px;
-  color: var(--base-color);
-  border: 1px solid white;
-  padding: 10px;
-  font-weight: bolder;
-  font-size: larger;
-  font-family: "Franklin Gothic Medium";
 }
 
 .head_content input {
@@ -55,7 +42,6 @@
   font-size: large;
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
-  width: 175px;
   box-sizing: border-box;
   padding: 5px 20px;
   margin: 15px 0;
@@ -72,13 +58,21 @@
   width: 100%;
 }
 
-.body_content button {
+.profile button {
   background-color: var(--contrast-color);
-  border-radius: 15px;
+  border-radius: 10px;
   color: var(--base-color);
   border: 1px solid white;
-  padding: 5px 15px;
+  padding: 10px 15px;
   font-weight: bolder;
-  font-size: larger;
-  font-family: "Franklin Gothic Medium";
+  font-size: large;
+}
+
+.profile button:hover {
+  background-color: rgb(62, 62, 62);
+}
+
+.profile {
+  min-width: 1000px;
+  padding-bottom: 5%;
 }

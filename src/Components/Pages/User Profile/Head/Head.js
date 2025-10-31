@@ -114,9 +114,7 @@ const Head = () => {
         </div>
 
         {/* Logout button */}
-        <button className="p-2 ms-3" onClick={logoutHandler}>
-          Logout
-        </button>
+        <button onClick={logoutHandler}>Logout</button>
       </div>
     </div>
   );

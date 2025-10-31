@@ -124,7 +124,7 @@ const AddExpense = () => {
               Select Category
             </option>
             <option value="Entertainment">Entertainment</option>
-            <option value="Travel">Travel Expenses</option>
+            <option value="Travel">Travel</option>
             <option value="Education">Education</option>
             <option value="Hospital">Hospital</option>
             <option value="Salary">Salary</option>

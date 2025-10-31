@@ -107,7 +107,7 @@ const ExpenseListing = () => {
           No Expenses Found!
         </h2>
       )}
-      {expense_list}
+      <div className={expense_class.expense_list}>{expense_list}</div>
     </Card>
   );
 };
