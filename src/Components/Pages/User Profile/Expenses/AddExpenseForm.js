@@ -2,8 +2,11 @@ import { useEffect, useState } from "react";
 import { ModalActions } from "../../../Redux store/ModalSlice";
 import form_classes from "../../../UI/Form.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { ExpenseActions, firebaseUrl } from "../../../Redux store/ExpenseSlice";
-import axios from "axios";
+import { ExpenseActions } from "../../../Redux store/ExpenseSlice";
+import {
+  removeExpense,
+  saveExpense,
+} from "../../../Redux store/ExpenseActions";
 
 const AddExpense = () => {
   const dispatch = useDispatch();
@@ -49,21 +52,15 @@ const AddExpense = () => {
       category,
       type,
     };
-    console.log(userId);
 
-    await axios.put(
-      `${firebaseUrl}/expenses/${userId}/${expenseDetails.id}.json`,
-      expenseDetails
-    );
-    if (isEdit) {
-      dispatch(ExpenseActions.editExpense(expenseDetails));
-    } else {
-      dispatch(ExpenseActions.addExpense(expenseDetails));
+    try {
+      dispatch(saveExpense({ expenseDetails, userId, isEdit }));
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
 
-    dispatch(ExpenseActions.isEditExpense(false));
-    dispatch(ExpenseActions.setEdit_exp(null));
-    dispatch(ModalActions.unsetModal());
     setLoading(false);
   };
 
@@ -75,11 +72,7 @@ const AddExpense = () => {
 
   const deleteHandler = async (id) => {
     if (window.confirm("Are you sure you want to delete this expense?")) {
-      await axios.delete(`${firebaseUrl}/expenses/${userId}/${id}.json`);
-      dispatch(ExpenseActions.delete_exp(id));
-      dispatch(ExpenseActions.isEditExpense(false));
-      dispatch(ExpenseActions.setEdit_exp(null));
-      dispatch(ModalActions.unsetModal());
+      dispatch(removeExpense(id, userId));
     }
   };
   return (
