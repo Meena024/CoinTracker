@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import MyPieChart from "./PieChart";
-import styles from "./../../../UI/Chart.module.css";
+import styles from "./../../UI/CSS/Chart.module.css";
 
 const Chart = () => {
   const chartData = useSelector((state) => state.expense.searchedExpenses);

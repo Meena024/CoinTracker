@@ -6,7 +6,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import styles from "./../../../UI/Chart.module.css";
+import styles from "./../../UI/CSS/Chart.module.css";
 
 const COLORS = [
   "#5ccc87ff",

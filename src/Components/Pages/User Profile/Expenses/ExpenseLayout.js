@@ -1,8 +1,8 @@
 import { Col, Row } from "react-bootstrap";
-import expense_classes from "../../../UI/Expense.module.css";
-import { ModalActions } from "../../../Redux store/ModalSlice";
+import expense_classes from "../../../UI/CSS/Expense.module.css";
+import { ModalActions } from "../../../../Redux store/ModalSlice";
 import { useDispatch } from "react-redux";
-import { ExpenseActions } from "../../../Redux store/ExpenseSlice";
+import { ExpenseActions } from "../../../../Redux store/ExpenseSlice";
 
 const ExpenseLayout = ({ trans }) => {
   const dispatch = useDispatch();

@@ -1,8 +1,8 @@
 import { useState } from "react";
-import form_classes from "../../UI/Form.module.css";
+import form_classes from "../../UI/CSS/Form.module.css";
 import { useNavigate } from "react-router";
-import Card from "../../UI/Card";
-import { AuthAction } from "../../Redux store/AuthSlice";
+import Card from "../../UI/Card/Card";
+import { AuthAction } from "../../../Redux store/AuthSlice";
 import { useDispatch } from "react-redux";
 
 const Login = () => {

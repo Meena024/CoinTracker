@@ -1,11 +1,11 @@
 import "./Modals.css";
-import Card from "./Card";
+import Card from "../Card/Card";
 import { useSelector, useDispatch } from "react-redux";
-import { ModalActions } from "../Redux store/ModalSlice";
-import EditProfile from "../Pages/User Profile/Head/EditProfile";
-import AddExpense from "../Pages/User Profile/Expenses/AddExpenseForm";
-import { ExpenseActions } from "../Redux store/ExpenseSlice";
-import Chart from "../Pages/User Profile/Chart/Chart";
+import { ModalActions } from "../../../Redux store/ModalSlice";
+import EditProfile from "../../Pages/User Profile/Head/EditProfile";
+import AddExpense from "../../Pages/User Profile/Expenses/AddExpenseForm";
+import { ExpenseActions } from "../../../Redux store/ExpenseSlice";
+import Chart from "../../Pages/Chart/Chart";
 
 const Modals = () => {
   const dispatch = useDispatch();

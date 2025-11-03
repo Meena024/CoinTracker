@@ -3,7 +3,7 @@ import Main from "./Components/Main";
 import WebFont from "webfontloader";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter } from "react-router";
-import store from "./Components/Redux store/store";
+import store from "./Redux store/store";
 import { Provider } from "react-redux";
 
 function App() {

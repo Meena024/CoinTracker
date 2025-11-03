@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import edit_icon from "../../../../Assets/Edit_icon1.png";
-import head_classes from "../../../UI/Head.module.css";
+import head_classes from "../../../UI/CSS/Head.module.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { AuthAction } from "../../../Redux store/AuthSlice";
-import { ModalActions } from "../../../Redux store/ModalSlice";
-import { ExpenseActions } from "../../../Redux store/ExpenseSlice";
+import { AuthAction } from "../../../../Redux store/AuthSlice";
+import { ModalActions } from "../../../../Redux store/ModalSlice";
+import { ExpenseActions } from "../../../../Redux store/ExpenseSlice";
 
 const Head = () => {
   const navigate = useNavigate();

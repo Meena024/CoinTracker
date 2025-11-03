@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import expense_class from "./../../../UI/Expense.module.css";
+import expense_class from "./../../../UI/CSS/Expense.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { ExpenseActions } from "../../../Redux store/ExpenseSlice";
-import form_classes from "./../../../UI/Form.module.css";
+import { ExpenseActions } from "../../../../Redux store/ExpenseSlice";
+import form_classes from "./../../../UI/CSS/Form.module.css";
 
 const Filter = () => {
   const dispatch = useDispatch();

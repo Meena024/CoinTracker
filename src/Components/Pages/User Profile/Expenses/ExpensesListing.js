@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import ExpenseLayout from "./ExpenseLayout";
-import expense_class from "./../../../UI/Expense.module.css";
-import Card from "../../../UI/Card";
+import expense_class from "./../../../UI/CSS/Expense.module.css";
+import Card from "../../../UI/Card/Card";
 import Filter from "./Filter";
-import { ModalActions } from "../../../Redux store/ModalSlice";
+import { ModalActions } from "../../../../Redux store/ModalSlice";
 import { useState } from "react";
 
 const ExpenseListing = () => {

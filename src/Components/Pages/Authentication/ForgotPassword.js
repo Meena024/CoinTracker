@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import form_classes from "../../UI/Form.module.css";
-import Card from "../../UI/Card";
+import form_classes from "../../UI/CSS/Form.module.css";
+import Card from "../../UI/Card/Card";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();

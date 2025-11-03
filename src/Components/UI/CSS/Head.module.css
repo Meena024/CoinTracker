@@ -74,5 +74,5 @@
 
 .profile {
   min-width: 1000px;
-  padding-bottom: 5%;
+  min-height: 100dvh;
 }

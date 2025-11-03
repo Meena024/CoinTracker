@@ -1,7 +1,7 @@
-import form_classes from "../../UI/Form.module.css";
+import form_classes from "../../UI/CSS/Form.module.css";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import Card from "../../UI/Card";
+import Card from "../../UI/Card/Card";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");

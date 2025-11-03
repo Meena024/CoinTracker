@@ -1,8 +1,8 @@
-import head_class from "../../../UI/Head.module.css";
-import { ModalActions } from "../../../Redux store/ModalSlice";
+import head_class from "../../../UI/CSS/Head.module.css";
+import { ModalActions } from "../../../../Redux store/ModalSlice";
 import { useDispatch } from "react-redux";
 import ExpenseListing from "./ExpensesListing";
-import { MiscActions } from "../../../Redux store/MiscSlice";
+import { MiscActions } from "../../../../Redux store/MiscSlice";
 import Switch from "@mui/material/Switch";
 
 const ExpenseMain = () => {

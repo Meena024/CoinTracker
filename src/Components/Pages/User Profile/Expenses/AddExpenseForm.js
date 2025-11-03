@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { ModalActions } from "../../../Redux store/ModalSlice";
-import form_classes from "../../../UI/Form.module.css";
+import { ModalActions } from "../../../../Redux store/ModalSlice";
+import form_classes from "../../../UI/CSS/Form.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { ExpenseActions } from "../../../Redux store/ExpenseSlice";
+import { ExpenseActions } from "../../../../Redux store/ExpenseSlice";
 import {
   removeExpense,
   saveExpense,
-} from "../../../Redux store/ExpenseActions";
+} from "../../../../Redux store/ExpenseActions";
 
 const AddExpense = () => {
   const dispatch = useDispatch();
