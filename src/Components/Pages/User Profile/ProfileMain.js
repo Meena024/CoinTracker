@@ -8,6 +8,7 @@ import { firebaseUrl } from "../../Redux store/ExpenseSlice";
 import classes from "./../../UI/Head.module.css";
 import { fetchUserProfile } from "../../Redux store/ProfileActions";
 import { fetchExpenses } from "../../Redux store/ExpenseActions";
+import { fetchUserId } from "../../Redux store/AuthActions";
 
 const ProfileMain = () => {
   const navigate = useNavigate();
@@ -25,6 +26,7 @@ const ProfileMain = () => {
       return;
     }
 
+    dispatch(fetchUserId(token));
     dispatch(fetchUserProfile(token));
     dispatch(fetchExpenses(firebaseUrl, userId));
   }, [dispatch, navigate, userId]);
