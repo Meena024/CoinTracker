@@ -1,14 +1,22 @@
 import { ExpenseActions } from "./ExpenseSlice";
 import { ModalActions } from "./ModalSlice";
-import axios from "axios";
 import { firebaseUrl } from "./ExpenseSlice";
 
+// ✅ Save or edit expense
 export const saveExpense = ({ expenseDetails, userId, isEdit }) => {
   return async (dispatch) => {
-    await axios.put(
+    const response = await fetch(
       `${firebaseUrl}/expenses/${userId}/${expenseDetails.id}.json`,
-      expenseDetails
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(expenseDetails),
+      }
     );
+
+    if (!response.ok) {
+      throw new Error("Failed to save expense");
+    }
 
     if (isEdit) {
       dispatch(ExpenseActions.editExpense(expenseDetails));
@@ -22,9 +30,18 @@ export const saveExpense = ({ expenseDetails, userId, isEdit }) => {
   };
 };
 
+// ✅ Remove expense
 export const removeExpense = (id, userId) => {
   return async (dispatch) => {
-    await axios.delete(`${firebaseUrl}/expenses/${userId}/${id}.json`);
+    const response = await fetch(
+      `${firebaseUrl}/expenses/${userId}/${id}.json`,
+      { method: "DELETE" }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to delete expense");
+    }
+
     dispatch(ExpenseActions.delete_exp(id));
     dispatch(ExpenseActions.isEditExpense(false));
     dispatch(ExpenseActions.setEdit_exp(null));
@@ -32,18 +49,19 @@ export const removeExpense = (id, userId) => {
   };
 };
 
+// ✅ Fetch expenses
 export const fetchExpenses = (firebaseUrl, userId) => {
   return async (dispatch) => {
     try {
-      const response = await axios.get(
-        `${firebaseUrl}/expenses/${userId}.json`
-      );
-      const data = response.data || {};
+      const response = await fetch(`${firebaseUrl}/expenses/${userId}.json`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch expenses");
+      }
 
-      const expenses = Object.entries(data).map(([id, expense]) => ({
-        id,
-        ...expense,
-      }));
+      const data = await response.json();
+      const expenses = data
+        ? Object.entries(data).map(([id, expense]) => ({ id, ...expense }))
+        : [];
 
       dispatch(
         ExpenseActions.setExpenses(

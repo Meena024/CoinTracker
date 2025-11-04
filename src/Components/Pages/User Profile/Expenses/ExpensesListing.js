@@ -36,16 +36,20 @@ const ExpenseListing = () => {
 
   const downloadHandler = () => {
     const csvRows = [
-      ["Date", "Amount", "Category", "Description", "Type"],
+      ["Filtered transactions"],
+      ["Date", "Amount", "Category", "Custom", "Description", "Type"],
       ...searchedExpenses.map(
-        ({ date, amount, category, description, type }) => [
+        ({ date, amount, category, cust_cat, description, type }) => [
           date,
           amount,
           category,
+          cust_cat,
           description,
           type,
         ]
       ),
+      [],
+      ["Net Balance:", totalAmount],
     ];
 
     const csvContent = csvRows.map((row) => row.join(",")).join("\n");

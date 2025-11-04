@@ -39,9 +39,9 @@ const Chart = () => {
           <label>Total Credit:</label>
           <div className={styles.credit}>₹{totalCredit}</div>
 
-          <label>Net Balance:</label>
+          <label style={{ fontWeight: "bolder" }}>Net Balance:</label>
           <div className={netBalance < 0 ? styles.debit : styles.credit}>
-            ₹{Math.abs(netBalance)}
+            <h2 style={{ fontWeight: "bolder" }}>₹{Math.abs(netBalance)}</h2>
           </div>
         </div>
       </div>

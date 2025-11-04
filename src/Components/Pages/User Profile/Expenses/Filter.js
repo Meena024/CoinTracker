@@ -111,6 +111,7 @@ const Filter = () => {
           <option value="Education">Education</option>
           <option value="Hospital">Hospital</option>
           <option value="Salary">Salary</option>
+          <option value="Custom">Custom</option>
         </select>
       )}
 

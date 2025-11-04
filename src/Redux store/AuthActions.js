@@ -20,6 +20,7 @@ export const fetchUserId = (token) => {
 
       const userId = data.users[0].localId;
       dispatch(AuthAction.setUserId(userId));
+      return userId;
     } catch (err) {
       console.error("Failed to fetch userId", err);
       return null;

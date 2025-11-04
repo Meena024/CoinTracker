@@ -75,8 +75,6 @@ const Login = () => {
       localStorage.setItem("tokenExpiry", Date.now() + data.expiresIn * 1000);
 
       dispatch(AuthAction.userAuthenticated());
-      dispatch(AuthAction.setIdToken(data.idToken));
-      dispatch(AuthAction.setUserId(data.localId));
 
       scheduleTokenRefresh();
       navigate("/UserProfile");

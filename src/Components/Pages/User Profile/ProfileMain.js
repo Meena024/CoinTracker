@@ -13,7 +13,6 @@ import { fetchUserId } from "../../../Redux store/AuthActions";
 const ProfileMain = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userId = useSelector((state) => state.auth.userId);
   const darkMode = useSelector((state) => state.misc.darkMode);
 
   const bg_color = !darkMode ? "rgba(0,0,0,0.5)" : "palegoldenrod";
@@ -26,10 +25,11 @@ const ProfileMain = () => {
       return;
     }
 
-    dispatch(fetchUserId(token));
-    dispatch(fetchUserProfile(token));
-    dispatch(fetchExpenses(firebaseUrl, userId));
-  }, [dispatch, navigate, userId]);
+    dispatch(fetchUserId(token)).then((id) => {
+      dispatch(fetchUserProfile(token));
+      dispatch(fetchExpenses(firebaseUrl, id));
+    });
+  }, [dispatch, navigate]);
 
   return (
     <div
