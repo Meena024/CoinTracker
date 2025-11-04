@@ -19,6 +19,7 @@ const AddExpense = () => {
   const [desc, setDesc] = useState("");
   const [category, setCategory] = useState("");
   const [type, setType] = useState("");
+  const [cust_cat, setCust_cat] = useState("");
 
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -29,6 +30,7 @@ const AddExpense = () => {
       setAmount(edit_exp.amount);
       setDesc(edit_exp.description);
       setCategory(edit_exp.category);
+      setCust_cat(edit_exp.cust_cat);
       setType(edit_exp.type);
     } else {
       setDate("");
@@ -50,6 +52,7 @@ const AddExpense = () => {
       amount,
       description: desc.charAt(0).toUpperCase() + desc.slice(1),
       category,
+      cust_cat: cust_cat.charAt(0).toUpperCase() + cust_cat.slice(1),
       type,
     };
 
@@ -121,9 +124,21 @@ const AddExpense = () => {
             <option value="Education">Education</option>
             <option value="Hospital">Hospital</option>
             <option value="Salary">Salary</option>
+            <option value="Others">Others</option>
+            <option value="Custom">Custom</option>
           </select>
         </div>
 
+        {category === "Custom" && (
+          <div style={{ margin: "20px" }}>
+            <input
+              type="text"
+              value={cust_cat}
+              onChange={(e) => setCust_cat(e.target.value)}
+              placeholder="Category"
+            />
+          </div>
+        )}
         <div style={{ margin: "20px" }}>
           <select
             value={type}

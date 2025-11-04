@@ -32,7 +32,7 @@ const ExpenseLayout = ({ trans }) => {
               fontSize: "25px",
             }}
           >
-            {trans.category}
+            {trans.category === "Custom" ? trans.cust_cat : trans.category}
           </span>
           {trans.description ? (
             <span
