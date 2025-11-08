@@ -65,7 +65,7 @@ export const fetchExpenses = (firebaseUrl, userId) => {
 
       dispatch(
         ExpenseActions.setExpenses(
-          expenses.sort((A, B) => new Date(A.date) - new Date(B.date))
+          expenses.sort((A, B) => new Date(B.date) - new Date(A.date))
         )
       );
       dispatch(ExpenseActions.setFilteredExpenses(expenses));

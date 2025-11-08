@@ -53,6 +53,7 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+  gap: 15px;
 }
 
 .head_content input {
@@ -68,18 +69,29 @@
 
 .body_content {
   position: fixed;
-  top: 220px;
+  top: 230px;
+  left: 50%;
+  transform: translateX(-50%);
   font-family: "Merriweather", serif;
   width: 100%;
+  max-width: 1200px;
+  padding: 1rem 2rem;
   display: flex;
   justify-content: center;
-  max-width: 2000px;
-  padding: 2rem 0;
-  box-sizing: border-box;
+  align-items: center;
+  gap: 15px;
 }
 
-.body_content span {
-  margin: 0px 15px;
+.nowrap_text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nowrap_text h4,
+.nowrap_text h6 {
+  margin: 0 3px 0 0;
+  vertical-align: middle;
 }
 
 .body_expense {

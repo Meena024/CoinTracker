@@ -1,11 +1,16 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ExpenseLayout from "./ExpenseLayout";
 import expense_class from "./../../../UI/CSS/Expense.module.css";
 import Card from "../../../UI/Card/Card";
-import { useState } from "react";
+import { ModalActions } from "../../../../Redux store/ModalSlice";
 
 const ExpenseListing = () => {
-  const [isPremium, setPremium] = useState(false);
+  const dispatch = useDispatch();
+
+  const addExpenseHandler = () => {
+    dispatch(ModalActions.setModalContent("AddExpense"));
+    dispatch(ModalActions.setModal());
+  };
 
   const searchedExpenses = useSelector(
     (state) => state.expense.searchedExpenses
@@ -26,35 +31,6 @@ const ExpenseListing = () => {
   const total_class =
     totalAmount < 0 ? expense_class.expense_deb : expense_class.expense_cred;
 
-  const downloadHandler = () => {
-    const csvRows = [
-      ["Filtered transactions"],
-      ["Date", "Amount", "Category", "Custom", "Description", "Type"],
-      ...searchedExpenses.map(
-        ({ date, amount, category, cust_cat, description, type }) => [
-          date,
-          amount,
-          category,
-          cust_cat,
-          description,
-          type,
-        ]
-      ),
-      [],
-      ["Net Balance:", totalAmount],
-    ];
-
-    const csvContent = csvRows.map((row) => row.join(",")).join("\n");
-    const blob = new Blob([csvContent], { type: "text/csv" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "expenses.csv";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-  };
-
   return (
     <Card className={expense_class.card}>
       <h3>
@@ -62,20 +38,15 @@ const ExpenseListing = () => {
           <span>Net Balance:</span>
           <span className={total_class}>₹ {Math.abs(totalAmount)}</span>
           <span>
-            {!isPremium && (
-              <button onClick={() => setPremium(true)}>Buy Premium</button>
-            )}
-            {isPremium && (
-              <button onClick={() => downloadHandler()}>Download</button>
-            )}
-          </span>{" "}
+            <button onClick={addExpenseHandler}>Add Transaction</button>
+          </span>
         </div>
       </h3>
 
       <hr
         style={{
           borderTop: "4px solid black",
-          minWidth: "800px",
+          minWidth: "700px",
           maxWidth: "1200px",
           margin: "0 auto",
         }}

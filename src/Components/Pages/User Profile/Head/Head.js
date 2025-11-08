@@ -76,7 +76,7 @@ const Head = () => {
             />
           )}
 
-          <div>
+          <div className={head_classes.nowrap_text}>
             <h4>Hello {name || "User"},</h4>
             <h6>When you track it, you control it.</h6>
           </div>

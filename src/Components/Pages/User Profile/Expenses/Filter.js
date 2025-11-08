@@ -16,7 +16,7 @@ const Filter = () => {
 
   const years = Array.from(
     new Set(expenses.map((exp) => new Date(exp.date).getFullYear()))
-  ).sort((a, b) => b - a);
+  ).sort((a, b) => a - b);
 
   useEffect(() => {
     if (filter === "category" && category) {
@@ -84,7 +84,6 @@ const Filter = () => {
           setYear("");
           dispatch(ExpenseActions.setFilteredExpenses(expenses));
         }}
-        className={expense_class.filter_select}
       >
         <option value="" disabled>
           Filter By
@@ -98,11 +97,7 @@ const Filter = () => {
       </select>
 
       {filter === "category" && (
-        <select
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-          className={expense_class.filter_select}
-        >
+        <select value={category} onChange={(e) => setCategory(e.target.value)}>
           <option value="" disabled>
             Select Category
           </option>
@@ -152,11 +147,7 @@ const Filter = () => {
       )}
 
       {filter === "year" && (
-        <select
-          value={year}
-          onChange={(e) => setYear(e.target.value)}
-          className={expense_class.filter_select}
-        >
+        <select value={year} onChange={(e) => setYear(e.target.value)}>
           <option value="" disabled>
             Select Year
           </option>
