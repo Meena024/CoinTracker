@@ -1,13 +1,10 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import ExpenseLayout from "./ExpenseLayout";
 import expense_class from "./../../../UI/CSS/Expense.module.css";
 import Card from "../../../UI/Card/Card";
-import Filter from "./Filter";
-import { ModalActions } from "../../../../Redux store/ModalSlice";
 import { useState } from "react";
 
 const ExpenseListing = () => {
-  const dispatch = useDispatch();
   const [isPremium, setPremium] = useState(false);
 
   const searchedExpenses = useSelector(
@@ -28,11 +25,6 @@ const ExpenseListing = () => {
 
   const total_class =
     totalAmount < 0 ? expense_class.expense_deb : expense_class.expense_cred;
-
-  const chartHandler = () => {
-    dispatch(ModalActions.setModalContent("Chart"));
-    dispatch(ModalActions.setModal());
-  };
 
   const downloadHandler = () => {
     const csvRows = [
@@ -64,17 +56,8 @@ const ExpenseListing = () => {
   };
 
   return (
-    <Card>
+    <Card className={expense_class.card}>
       <h3>
-        <div className={expense_class.total_content}>
-          <span>
-            <Filter />
-          </span>
-          <span>
-            <button onClick={chartHandler}>Chart</button>
-          </span>
-        </div>
-
         <div className={expense_class.total_content}>
           <span>Net Balance:</span>
           <span className={total_class}>₹ {Math.abs(totalAmount)}</span>

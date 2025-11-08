@@ -15,7 +15,7 @@ const ProfileMain = () => {
   const dispatch = useDispatch();
   const darkMode = useSelector((state) => state.misc.darkMode);
 
-  const bg_color = !darkMode ? "rgba(0,0,0,0.5)" : "palegoldenrod";
+  const bg_color = !darkMode ? "rgb(255, 253, 221)" : "rgba(0,0,0,0.5)";
 
   useEffect(() => {
     const token = localStorage.getItem("token");

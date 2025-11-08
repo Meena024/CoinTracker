@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter } from "react-router";
 import store from "./Redux store/store";
 import { Provider } from "react-redux";
+import Header from "./Components/Header";
 
 function App() {
   useEffect(() => {
@@ -28,6 +29,7 @@ function App() {
   return (
     <BrowserRouter>
       <Provider store={store}>
+        <Header />
         <Main />
       </Provider>
     </BrowserRouter>

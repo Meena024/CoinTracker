@@ -5,10 +5,10 @@ const Header = () => {
   return (
     <div className={head_classes.head_dark}>
       <div className={head_classes.header}>
-        <span>
+        <span style={{ paddingLeft: "10%" }}>
           <img src={logo} style={{ height: 150 }} alt="logo" />
         </span>
-        <span>
+        <span style={{ paddingRight: "10%" }}>
           <h1>Welcome to COIN TRACKER!</h1>
           <h2 className="ms-4">Track it, Know it, Own it.</h2>
         </span>

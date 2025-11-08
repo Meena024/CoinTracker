@@ -19,7 +19,6 @@ const Head = () => {
 
   const [searchText, setSearchText] = useState("");
 
-  // 🔍 Debounced search handler
   useEffect(() => {
     const timeout = setTimeout(() => {
       const text = searchText.trim().toLowerCase();
@@ -67,7 +66,6 @@ const Head = () => {
     <div className={head_classes.head_light}>
       <div className={head_classes.head_content}>
         <span className="d-flex justifyContent gap-5 align-items-center">
-          {/* Profile picture */}
           {pictureUrl && (
             <img
               src={pictureUrl}
@@ -78,20 +76,17 @@ const Head = () => {
             />
           )}
 
-          {/* Welcome message */}
-          <span>
+          <div>
             <h4>Hello {name || "User"},</h4>
             <h6>When you track it, you control it.</h6>
-          </span>
+          </div>
 
-          {/* Edit profile button */}
           <button className="p-2" onClick={editHandler}>
             <img src={edit_icon} alt="Edit Profile" height={30} />
           </button>
         </span>
 
-        {/* Search input */}
-        <div className="position-relative d-inline-block">
+        <span className="position-relative gap-5 d-inline-block">
           <input
             type="text"
             placeholder="Search..."
@@ -111,10 +106,11 @@ const Head = () => {
           >
             ×
           </button>
-        </div>
+        </span>
 
-        {/* Logout button */}
-        <button onClick={logoutHandler}>Logout</button>
+        <span>
+          <button onClick={logoutHandler}>Logout</button>
+        </span>
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import ExpenseListing from "./ExpensesListing";
 import { MiscActions } from "../../../../Redux store/MiscSlice";
 import Switch from "@mui/material/Switch";
+import Filter from "./Filter";
 
 const ExpenseMain = () => {
   const dispatch = useDispatch();
@@ -13,14 +14,22 @@ const ExpenseMain = () => {
     dispatch(ModalActions.setModal());
   };
 
+  const chartHandler = () => {
+    dispatch(ModalActions.setModalContent("Chart"));
+    dispatch(ModalActions.setModal());
+  };
+
   return (
     <>
       <div className={head_class.body_content}>
         <span>
-          <h1>Transanctions</h1>
+          <button onClick={addExpenseHandler}>Add Transaction</button>
         </span>
         <span>
-          <button onClick={addExpenseHandler}>Add Transaction</button>
+          <Filter />
+        </span>
+        <span>
+          <button onClick={chartHandler}>Chart</button>
         </span>
         <span>
           {" "}
@@ -32,13 +41,7 @@ const ExpenseMain = () => {
           Light
         </span>
       </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center", // centers horizontally
-          alignItems: "center", // centers vertically
-        }}
-      >
+      <div className={head_class.body_expense}>
         <ExpenseListing />
       </div>
     </>
