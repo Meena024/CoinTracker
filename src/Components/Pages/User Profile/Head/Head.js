@@ -47,6 +47,8 @@ const Head = () => {
       console.log("Logging out...");
 
       localStorage.removeItem("token");
+      localStorage.removeItem("refreshToken");
+      localStorage.removeItem("tokenExpiry");
       dispatch(AuthAction.userLogOut());
       navigate("/");
 

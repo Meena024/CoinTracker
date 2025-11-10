@@ -81,14 +81,7 @@ const SignUp = () => {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center", // centers horizontally
-        alignItems: "center", // centers vertically
-        height: "70vh", // full viewport height
-      }}
-    >
+    <div className={form_classes.authFormCenter}>
       <Card>
         <h1>Sign Up</h1>
         <form onSubmit={signupHandler} className={form_classes.form}>

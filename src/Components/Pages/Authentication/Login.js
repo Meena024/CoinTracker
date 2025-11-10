@@ -88,14 +88,7 @@ const Login = () => {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center", // centers horizontally
-        alignItems: "center", // centers vertically
-        height: "70vh", // full viewport height
-      }}
-    >
+    <div className={form_classes.authFormCenter}>
       <Card>
         <h1>Sign In</h1>
         <form onSubmit={loginHandler} className={form_classes.form}>

@@ -4,6 +4,7 @@
   gap: 10px;
   justify-content: center;
   align-items: flex-start;
+  font-family: "Merriweather", serif;
 }
 
 .chartBox {
@@ -48,6 +49,7 @@
   border-radius: 15px;
   border: 1px solid white;
   padding: 5px 20px;
+  font-family: "Merriweather", serif;
 }
 
 .summaryRow {
