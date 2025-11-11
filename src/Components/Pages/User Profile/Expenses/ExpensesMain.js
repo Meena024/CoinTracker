@@ -1,20 +1,24 @@
 import head_class from "../../../UI/CSS/Head.module.css";
 import { ModalActions } from "../../../../Redux store/ModalSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
 import ExpenseListing from "./ExpensesListing";
-import { MiscActions } from "../../../../Redux store/MiscSlice";
 import Switch from "@mui/material/Switch";
 import Filter from "./Filter";
+import {
+  setDarkModeUpdate,
+  setPremiumUpdate,
+} from "../../../../Redux store/MiscActions";
 
 const ExpenseMain = () => {
   const dispatch = useDispatch();
 
-  const [isPremium, setPremium] = useState(false);
-
+  const isPremium = useSelector((state) => state.misc.premium);
   const searchedExpenses = useSelector(
     (state) => state.expense.searchedExpenses
   );
+  const expenses = useSelector((state) => state.expense.expenses);
+  const userId = useSelector((state) => state.auth.userId);
+  const mode = useSelector((state) => state.misc.darkMode);
 
   const chartHandler = () => {
     dispatch(ModalActions.setModalContent("Chart"));
@@ -58,17 +62,30 @@ const ExpenseMain = () => {
     0
   );
 
+  const PremCheck = expenses.reduce(
+    (acc, curr) => acc + Number(curr.amount),
+    0
+  );
+  if (expenses.length && PremCheck < 10000) {
+    console.log("PremCheck < 10000");
+    dispatch(setPremiumUpdate(false, userId));
+  }
+
   return (
     <>
       <div className={head_class.body_content}>
-        <span>
-          {!isPremium && (
-            <button onClick={() => setPremium(true)}>Buy Premium</button>
-          )}
-          {isPremium && (
-            <button onClick={() => downloadHandler()}>Download</button>
-          )}
-        </span>
+        {PremCheck > 10000 && (
+          <span>
+            {!isPremium && (
+              <button onClick={() => dispatch(setPremiumUpdate(true, userId))}>
+                Buy Premium
+              </button>
+            )}
+            {isPremium && (
+              <button onClick={() => downloadHandler()}>Download</button>
+            )}
+          </span>
+        )}
         <span>
           <Filter />
         </span>
@@ -80,14 +97,17 @@ const ExpenseMain = () => {
             whiteSpace: "nowrap",
             display: "flex",
             alignItems: "center",
+            border: "1px solid black",
+            borderRadius: "10px",
+            padding: "2px 10px",
           }}
         >
-          Light
+          Dark mode
           <Switch
-            onChange={(e) => dispatch(MiscActions.setDarkMode())}
+            checked={mode}
+            onChange={(e) => dispatch(setDarkModeUpdate(!mode, userId))}
             color="dark"
           />
-          Dark
         </span>
       </div>
       <div className={head_class.body_expense}>

@@ -43,14 +43,7 @@ const ForgotPassword = () => {
     setLoading(false);
   };
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center", // centers horizontally
-        alignItems: "center", // centers vertically
-        height: "70vh", // full viewport height
-      }}
-    >
+    <div className={form_classes.authFormCenter}>
       <Card>
         <h1>Forgot Password</h1>
         <form onSubmit={resetPasswordHandler} className={form_classes.form}>

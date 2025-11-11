@@ -15,6 +15,10 @@ const ProfileSlice = createSlice({
     setProfileUrl: (state, action) => {
       state.profileUrl = action.payload;
     },
+    reset: (state) => {
+      state.name = null;
+      state.profileUrl = null;
+    },
   },
 });
 

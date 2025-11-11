@@ -6,7 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { AuthAction } from "../../../../Redux store/AuthSlice";
 import { ModalActions } from "../../../../Redux store/ModalSlice";
 import { ExpenseActions } from "../../../../Redux store/ExpenseSlice";
-
+import { MiscActions } from "../../../../Redux store/MiscSlice";
+import { ProfileActions } from "../../../../Redux store/ProfileSlice";
 const Head = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -49,7 +50,12 @@ const Head = () => {
       localStorage.removeItem("token");
       localStorage.removeItem("refreshToken");
       localStorage.removeItem("tokenExpiry");
-      dispatch(AuthAction.userLogOut());
+
+      dispatch(AuthAction.reset());
+      dispatch(ExpenseActions.reset());
+      dispatch(MiscActions.reset());
+      dispatch(ProfileActions.reset());
+
       navigate("/");
 
       console.log("Logged out successfully");

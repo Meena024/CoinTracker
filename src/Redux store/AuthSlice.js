@@ -7,9 +7,6 @@ const AuthSlice = createSlice({
     userAuthenticated(state) {
       state.isAuthenticated = true;
     },
-    userLogOut(state) {
-      state.isAuthenticated = false;
-    },
 
     setIdToken(state, action) {
       state.idToken = action.payload;
@@ -17,6 +14,12 @@ const AuthSlice = createSlice({
 
     setUserId(state, action) {
       state.userId = action.payload;
+    },
+
+    reset(state) {
+      state.isAuthenticated = false;
+      state.idToken = null;
+      state.userId = null;
     },
   },
 });

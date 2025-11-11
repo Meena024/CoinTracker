@@ -4,10 +4,19 @@ const MiscSlice = createSlice({
   name: "Misc",
   initialState: {
     darkMode: false,
+    premium: false,
   },
   reducers: {
-    setDarkMode(state) {
-      state.darkMode = !state.darkMode;
+    setDarkMode(state, action) {
+      state.darkMode = action.payload;
+    },
+    setPremium(state, action) {
+      state.premium = action.payload;
+      console.log("premium", action.payload);
+    },
+    reset(state) {
+      state.darkMode = false;
+      state.premium = false;
     },
   },
 });

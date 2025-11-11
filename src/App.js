@@ -11,18 +11,7 @@ function App() {
   useEffect(() => {
     WebFont.load({
       google: {
-        families: [
-          "Roboto",
-          "Lato",
-          "Open Sans",
-          "Montserrat",
-          "Poppins",
-          "Merriweather",
-          "Source Sans Pro",
-          "Nunito",
-          "Playfair Display",
-          "Roboto Slab",
-        ],
+        families: ["Merriweather"],
       },
     });
   }, []);

@@ -1,12 +1,13 @@
 import { ExpenseActions } from "./ExpenseSlice";
 import { ModalActions } from "./ModalSlice";
 import { firebaseUrl } from "./ExpenseSlice";
+import { MiscActions } from "./MiscSlice";
 
-// ✅ Save or edit expense
+// Save or edit expense
 export const saveExpense = ({ expenseDetails, userId, isEdit }) => {
   return async (dispatch) => {
     const response = await fetch(
-      `${firebaseUrl}/expenses/${userId}/${expenseDetails.id}.json`,
+      `${firebaseUrl}/${userId}/expense/${expenseDetails.id}.json`,
       {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -30,11 +31,11 @@ export const saveExpense = ({ expenseDetails, userId, isEdit }) => {
   };
 };
 
-// ✅ Remove expense
+// Remove expense
 export const removeExpense = (id, userId) => {
   return async (dispatch) => {
     const response = await fetch(
-      `${firebaseUrl}/expenses/${userId}/${id}.json`,
+      `${firebaseUrl}/${userId}/expense/${id}.json`,
       { method: "DELETE" }
     );
 
@@ -49,28 +50,46 @@ export const removeExpense = (id, userId) => {
   };
 };
 
-// ✅ Fetch expenses
-export const fetchExpenses = (firebaseUrl, userId) => {
+// fetch user data
+export const fetchUserData = (firebaseUrl, userId) => {
   return async (dispatch) => {
     try {
-      const response = await fetch(`${firebaseUrl}/expenses/${userId}.json`);
+      const response = await fetch(`${firebaseUrl}/${userId}.json`);
       if (!response.ok) {
-        throw new Error("Failed to fetch expenses");
+        throw new Error("Failed to fetch user data");
       }
 
       const data = await response.json();
-      const expenses = data
-        ? Object.entries(data).map(([id, expense]) => ({ id, ...expense }))
-        : [];
+      if (!data) {
+        console.warn("No data found for user:", userId);
+        return;
+      }
 
-      dispatch(
-        ExpenseActions.setExpenses(
-          expenses.sort((A, B) => new Date(B.date) - new Date(A.date))
-        )
+      // Extract expenses safely
+      const expensesData = data.expense || {};
+      const expenses = Object.entries(expensesData).map(([id, expense]) => ({
+        id,
+        ...expense,
+      }));
+
+      // Sort by date (newest first)
+      const sortedExpenses = expenses.sort(
+        (A, B) => new Date(B.date) - new Date(A.date)
       );
-      dispatch(ExpenseActions.setFilteredExpenses(expenses));
+
+      // Dispatch Expense slice initialization
+      dispatch(ExpenseActions.setExpenses(sortedExpenses));
+      dispatch(ExpenseActions.setFilteredExpenses(sortedExpenses));
+
+      // Dispatch Misc slice initialization
+      if (data.Premium !== undefined) {
+        dispatch(MiscActions.setPremium(data.Premium));
+      }
+      if (data.darkMode !== undefined) {
+        dispatch(MiscActions.setDarkMode(data.darkMode));
+      }
     } catch (err) {
-      console.error("Fetch expenses failed", err);
+      console.error("Fetch user data failed ", err);
     }
   };
 };

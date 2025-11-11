@@ -7,7 +7,7 @@ import ExpenseMain from "./Expenses/ExpensesMain";
 import { firebaseUrl } from "../../../Redux store/ExpenseSlice";
 import classes from "./../../UI/CSS/Head.module.css";
 import { fetchUserProfile } from "../../../Redux store/ProfileActions";
-import { fetchExpenses } from "../../../Redux store/ExpenseActions";
+import { fetchUserData } from "../../../Redux store/ExpenseActions";
 import { fetchUserId } from "../../../Redux store/AuthActions";
 
 const ProfileMain = () => {
@@ -27,7 +27,7 @@ const ProfileMain = () => {
 
     dispatch(fetchUserId(token)).then((id) => {
       dispatch(fetchUserProfile(token));
-      dispatch(fetchExpenses(firebaseUrl, id));
+      dispatch(fetchUserData(firebaseUrl, id));
     });
   }, [dispatch, navigate]);
 

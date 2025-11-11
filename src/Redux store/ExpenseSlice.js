@@ -61,6 +61,13 @@ const ExpenseSlice = createSlice({
         (exp) => exp.id !== action.payload
       );
     },
+    reset: (state) => {
+      state.expenses = [];
+      state.filteredExpenses = [];
+      state.searchedExpenses = [];
+      state.isEdit = false;
+      state.edit_exp = null;
+    },
   },
 });
 

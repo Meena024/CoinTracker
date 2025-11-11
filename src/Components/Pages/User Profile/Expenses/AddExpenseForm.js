@@ -80,8 +80,11 @@ const AddExpense = () => {
   };
   return (
     <>
-      {!isEdit && <h1>Add Transanction</h1>}
-      {isEdit && <h1>Edit Transaction</h1>}
+      <h1 style={{ fontFamily: "merriweather" }}>
+        {isEdit && "Edit Transaction"}
+        {!isEdit && "Add Transaction"}
+      </h1>
+
       <form onSubmit={addNewExpenseHandler} className={form_classes.form}>
         <div style={{ margin: "20px" }}>
           <input
