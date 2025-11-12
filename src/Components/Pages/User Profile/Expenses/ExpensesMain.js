@@ -100,6 +100,8 @@ const ExpenseMain = () => {
             border: "1px solid black",
             borderRadius: "10px",
             padding: "2px 10px",
+            fontSize: "large",
+            fontWeight: "bold",
           }}
         >
           Dark mode

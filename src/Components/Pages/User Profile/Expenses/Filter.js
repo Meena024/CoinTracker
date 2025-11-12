@@ -127,7 +127,14 @@ const Filter = () => {
                 setDateRange({ ...dateRange, start: e.target.value })
               }
             />
-            <span>to</span>
+            <span
+              style={{
+                fontSize: "large",
+                fontWeight: "bold",
+              }}
+            >
+              to
+            </span>
             <input
               type="date"
               value={dateRange.end}

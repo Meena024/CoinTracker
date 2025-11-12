@@ -5,15 +5,15 @@ const Header = () => {
   return (
     <div className={head_classes.head_dark}>
       <div className={head_classes.header}>
-        <span style={{ paddingLeft: "10%" }}>
-          <img src={logo} style={{ height: 150 }} alt="logo" />
+        <span style={{ paddingLeft: "2%" }}>
+          <img src={logo} style={{ height: 100 }} alt="logo" />
         </span>
         <span
-          style={{ paddingRight: "10%" }}
+          style={{ paddingRight: "2%" }}
           className={head_classes.nowrap_text}
         >
-          <h1>Welcome to COIN TRACKER!</h1>
-          <h2 className="ms-4">Track it, Know it, Own it.</h2>
+          <h2>Welcome to COIN TRACKER!</h2>
+          <h3 className="ms-4">Track it, Know it, Own it.</h3>
         </span>
       </div>
     </div>

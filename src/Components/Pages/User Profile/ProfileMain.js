@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import ExpenseMain from "./Expenses/ExpensesMain";
 import { firebaseUrl } from "../../../Redux store/ExpenseSlice";
-import classes from "./../../UI/CSS/Head.module.css";
+import head_class from "./../../UI/CSS/Head.module.css";
 import { fetchUserProfile } from "../../../Redux store/ProfileActions";
 import { fetchUserData } from "../../../Redux store/ExpenseActions";
 import { fetchUserId } from "../../../Redux store/AuthActions";
@@ -33,7 +33,7 @@ const ProfileMain = () => {
 
   return (
     <div
-      className={classes.profile}
+      className={head_class.profile}
       style={{
         backgroundColor: bg_color,
       }}

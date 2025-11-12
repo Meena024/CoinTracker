@@ -35,7 +35,7 @@ const ExpenseListing = () => {
     <Card className={expense_class.card}>
       <h3>
         <div className={expense_class.total_content}>
-          <span>Net Balance:</span>
+          <span className={expense_class.nowrap_text}>Net Balance:</span>
           <span className={total_class}>₹ {Math.abs(totalAmount)}</span>
           <span>
             <button onClick={addExpenseHandler}>Add Transaction</button>
@@ -46,7 +46,7 @@ const ExpenseListing = () => {
       <hr
         style={{
           borderTop: "4px solid black",
-          minWidth: "700px",
+          minWidth: "600px",
           maxWidth: "1200px",
           margin: "0 auto",
         }}
