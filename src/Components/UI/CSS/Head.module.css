@@ -44,6 +44,8 @@ body {
   width: 100%;
   position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 1000;
   height: 100px;
   display: flex;
@@ -72,10 +74,10 @@ body {
 ============================= */
 
 .head_light {
-  background-color: var(--base-color);
-  color: var(--contrast-color);
+  background-color: var(--contrast-color);
+  color: var(--base-color);
   position: fixed;
-  top: 100px;
+  top: 0;
   left: 0; /* ✅ Ensure it starts from the very left */
   right: 0; /* ✅ Stretch to the very right */
   width: 100vw; /* ✅ Force full viewport width */
@@ -93,6 +95,7 @@ body {
   font-family: "Merriweather", serif;
   box-sizing: border-box;
   margin: 0; /* ✅ Remove any leftover spacing */
+  border-bottom: 3px solid var(--base-color);
 }
 
 .head_content {
@@ -132,7 +135,7 @@ body {
 
 .body_content {
   position: fixed;
-  top: 100;
+  top: 60px;
   font-family: "Merriweather", serif;
   width: 100%;
   padding: 1rem;
@@ -147,7 +150,6 @@ body {
 }
 
 .profile {
-  margin-top: 160px;
   height: 100vh;
 }
 
@@ -157,7 +159,7 @@ body {
 
 .body_expense {
   position: fixed;
-  top: 260px;
+  top: 150px;
   width: 100%;
   max-height: calc(100vh - 220px); /* fits below buttons */
 }
