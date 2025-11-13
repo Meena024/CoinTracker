@@ -138,6 +138,11 @@ const Head = () => {
     dispatch(setPremiumUpdate(false, userId));
   }
 
+  const zoomImageHandler = () => {
+    dispatch(ModalActions.setModalContent("ZoomImage"));
+    dispatch(ModalActions.setModal());
+  };
+
   return (
     <div className={head_classes.head_light}>
       <div className={head_classes.head_content}>
@@ -149,6 +154,7 @@ const Head = () => {
               height={50}
               width={50}
               className="rounded border white"
+              onClick={() => zoomImageHandler()}
             />
           )}
 
