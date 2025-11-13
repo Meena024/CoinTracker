@@ -1,13 +1,17 @@
-import { Route, Routes } from "react-router";
+import { useSelector } from "react-redux";
+import { Routes, Route } from "react-router";
+import Header from "./Header";
+import Footer from "./Footer";
+import ProtectedRoute from "./Route/ProtectedRoute";
+import PublicRoute from "./Route/PublicRoute";
 import ProfileMain from "./Pages/User Profile/ProfileMain";
 import Login from "./Pages/Authentication/Login";
 import SignUp from "./Pages/Authentication/SignUp";
 import ForgotPassword from "./Pages/Authentication/ForgotPassword";
-import Footer from "./Footer";
-import Header from "./Header";
-import { useSelector } from "react-redux";
+import { useAuthInitializer } from "../Components/Pages/Authentication/AuthInitializer";
 
 const Main = () => {
+  useAuthInitializer();
   const isLoggedIn = useSelector((state) => state.auth.isAuthenticated);
 
   return (
@@ -15,12 +19,39 @@ const Main = () => {
       {!isLoggedIn && <Header />}
       <Footer />
       <Routes>
-        <Route path="/UserProfile" element={<ProfileMain />} />
-        <Route path="/ForgotPassword" element={<ForgotPassword />} />
-        <Route path="/SignUp" element={<SignUp />} />
-        <Route path="/ForgotPassword" element={<ForgotPassword />} />
+        <Route
+          path="/UserProfile"
+          element={
+            <ProtectedRoute isLoggedIn={isLoggedIn}>
+              <ProfileMain />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/SignUp"
+          element={
+            <PublicRoute isLoggedIn={isLoggedIn}>
+              <SignUp />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/ForgotPassword"
+          element={
+            <PublicRoute isLoggedIn={isLoggedIn}>
+              <ForgotPassword />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/"
+          element={
+            <PublicRoute isLoggedIn={isLoggedIn}>
+              <Login />
+            </PublicRoute>
+          }
+        />
         <Route path="*" element={<h1>Page Not Found!</h1>} />
-        <Route path="" element={<Login />} />
       </Routes>
     </>
   );
