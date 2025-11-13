@@ -5,7 +5,7 @@ import Filter from "./Filter";
 const ExpenseMain = () => {
   return (
     <>
-      <div className={head_class.body_content}>
+      <div className={head_class.body_filter}>
         <Filter />
       </div>
       <div className={head_class.body_expense}>

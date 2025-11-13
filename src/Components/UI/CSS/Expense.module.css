@@ -49,37 +49,6 @@
   gap: 100px;
 }
 
-.filter {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: "Merriweather", serif;
-  gap: 10px;
-}
-
-.filter select {
-  background-color: var(--contrast-color);
-  border-radius: 10px;
-  color: var(--base-color);
-  border: 1px solid white;
-  font-family: "Merriweather", serif;
-  padding: 10px 20px;
-  font-weight: bolder;
-  font-size: large;
-}
-
-.filter input {
-  border-radius: 10px;
-  color: rgb(208, 163, 0);
-  padding: 5px 20px;
-  font-weight: bolder;
-  font-size: large;
-  font-family: "Merriweather", serif;
-  border: 1px solid black;
-  text-align: center;
-  width: 200px;
-}
-
 .expense_list {
   /* flex: 1; */
   /* takes remaining space inside the Card */
@@ -89,7 +58,7 @@
   padding: 1rem 2rem;
   margin: auto 0px;
   scrollbar-width: thin;
-  scrollbar-color: #888 #f1f1f1;
+  scrollbar-color: #888 var(--base-color);
 }
 
 .expense_list::-webkit-scrollbar {
@@ -109,7 +78,6 @@
   max-width: 800px;
   display: flex;
   flex-direction: column;
-  overflow: hidden; /* prevents outer scrollbars */
   padding: 20px;
   margin: 0 auto;
 }

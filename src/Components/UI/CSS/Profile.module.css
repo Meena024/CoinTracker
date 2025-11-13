@@ -1,0 +1,45 @@
+/* Main profile wrapper */
+.profile {
+  width: 100%;
+  min-height: 90vh;
+  padding-bottom: 5%;
+  height: 100vh;
+}
+
+/* =============================
+   BUTTON STYLES
+============================= */
+.profile button {
+  background-color: var(--contrast-color);
+  border-radius: 10px;
+  color: var(--base-color);
+  border: 1px solid white;
+  padding: 10px 15px;
+  font-weight: bolder;
+  font-size: large;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.profile button:hover {
+  background-color: rgb(62, 62, 62);
+}
+
+/* =============================
+   RESPONSIVE BEHAVIOR
+============================= */
+
+/* Mobile screens */
+@media (max-width: 768px) {
+  .profile button {
+    font-size: medium;
+    padding: 8px 12px;
+  }
+}
+
+/* Very small screens (≤480px) */
+@media (max-width: 480px) {
+  .profile button {
+    font-size: medium;
+  }
+}

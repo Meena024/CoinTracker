@@ -1,4 +1,4 @@
-import head_classes from "./UI/CSS/Head.module.css";
+import head_classes from "./UI/CSS/Header.module.css";
 import logo from "../Assets/coin tracker.png";
 
 const Header = () => {

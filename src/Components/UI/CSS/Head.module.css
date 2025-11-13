@@ -1,76 +1,5 @@
 /* =============================
-   Global Theme Colors
-============================= */
-:root {
-  --base-color: rgb(253, 193, 81);
-  --contrast-color: black;
-  --light-color: rgb(255, 253, 221);
-}
-
-/* =============================
-   Global Resets
-============================= */
-html,
-body {
-  width: 100%;
-  max-width: 100%;
-  height: 100%;
-  /* overflow-x: hidden; */
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Merriweather", serif;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-}
-
-/* Main profile wrapper */
-.profile {
-  width: 100%;
-  min-height: 90vh;
-  padding-bottom: 5%;
-}
-
-/* =============================
-   HEADER (Top Black Bar)
-============================= */
-.head_dark {
-  background-color: var(--contrast-color);
-  color: var(--base-color);
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  height: 100px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 1rem;
-  overflow-x: auto;
-  overflow-y: hidden;
-  white-space: nowrap;
-  font-family: "Merriweather", serif;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  text-align: right;
-  width: 100%;
-}
-
-.header .logo {
-  flex: 0 0 auto;
-}
-/* =============================
-   SUB-HEADER (Dark Yellow Bar)
+   SUB-HEADER 
 ============================= */
 
 .head_light {
@@ -81,7 +10,7 @@ body {
   left: 0; /* ✅ Ensure it starts from the very left */
   right: 0; /* ✅ Stretch to the very right */
   width: 100vw; /* ✅ Force full viewport width */
-  z-index: 999;
+  z-index: 1000;
   height: 60px;
   display: flex;
   justify-content: space-between;
@@ -96,11 +25,12 @@ body {
   box-sizing: border-box;
   margin: 0; /* ✅ Remove any leftover spacing */
   border-bottom: 3px solid var(--base-color);
+  scrollbar-width: none;
 }
 
 .head_content {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
   width: 100%;
   flex-wrap: nowrap;
@@ -130,27 +60,16 @@ body {
 }
 
 /* =============================
-   BODY CONTENT (Buttons & Filters)
+   BODY CONTENT 
 ============================= */
 
-.body_content {
-  position: fixed;
-  top: 60px;
+.body_filter {
   font-family: "Merriweather", serif;
-  width: 100%;
-  padding: 1rem;
   display: flex;
-  justify-content: flex-end;
+  justify-content: end;
   align-items: center;
-  gap: 20px;
-  overflow-x: auto;
-  overflow-y: hidden;
-  flex-wrap: nowrap;
-  white-space: nowrap;
-}
-
-.profile {
-  height: 100vh;
+  overflow-y: auto;
+  box-sizing: border-box;
 }
 
 /* =============================
@@ -158,30 +77,13 @@ body {
 ============================= */
 
 .body_expense {
-  position: fixed;
-  top: 150px;
-  width: 100%;
-  max-height: calc(100vh - 220px); /* fits below buttons */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* min-height: 100vh; */
+  overflow-y: auto;
+  box-sizing: border-box;
 }
-/* =============================
-   BUTTON STYLES
-============================= */
-.profile button {
-  background-color: var(--contrast-color);
-  border-radius: 10px;
-  color: var(--base-color);
-  border: 1px solid white;
-  padding: 10px 15px;
-  font-weight: bolder;
-  font-size: large;
-  cursor: pointer;
-  white-space: nowrap;
-}
-
-.profile button:hover {
-  background-color: rgb(62, 62, 62);
-}
-
 /* =============================
    RESPONSIVE BEHAVIOR
 ============================= */
@@ -190,7 +92,7 @@ body {
 @media (max-width: 1024px) {
   .head_dark,
   .head_light,
-  .body_content {
+  .body_filter {
     overflow-x: auto;
     overflow-y: hidden;
     white-space: nowrap;
@@ -218,23 +120,18 @@ body {
     white-space: nowrap;
   }
 
-  .body_content {
+  .body_filter {
     flex-direction: row;
     gap: 10px;
     overflow-x: scroll;
     white-space: nowrap;
-  }
-
-  .profile button {
-    font-size: medium;
-    padding: 8px 12px;
   }
 }
 
 /* Very small screens (≤480px) */
 @media (max-width: 480px) {
   .head_content,
-  .body_content {
+  .body_filter {
     gap: 8px;
     padding: 0.5rem;
   }
@@ -242,9 +139,5 @@ body {
   .head_content input {
     font-size: medium;
     min-width: 180px;
-  }
-
-  .profile button {
-    font-size: medium;
   }
 }

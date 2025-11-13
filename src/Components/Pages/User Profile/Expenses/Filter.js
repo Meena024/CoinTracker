@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
-import expense_class from "./../../../UI/CSS/Expense.module.css";
+import filter_classes from "./../../../UI/CSS/Filter.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { ExpenseActions } from "../../../../Redux store/ExpenseSlice";
-import form_classes from "./../../../UI/CSS/Form.module.css";
 
 const Filter = () => {
   const dispatch = useDispatch();
@@ -71,7 +70,75 @@ const Filter = () => {
   }, [filter, expenses, dispatch]);
 
   return (
-    <div className={expense_class.filter}>
+    <div className={filter_classes.filter}>
+      {filter === "category" && (
+        <select value={category} onChange={(e) => setCategory(e.target.value)}>
+          <option value="" disabled>
+            Select Category
+          </option>
+          <option value="Entertainment">Entertainment</option>
+          <option value="Travel">Travel</option>
+          <option value="Education">Education</option>
+          <option value="Hospital">Hospital</option>
+          <option value="Salary">Salary</option>
+          <option value="Custom">Custom</option>
+        </select>
+      )}
+
+      {filter === "custom" && (
+        <div
+          style={{
+            margin: "20px",
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+          }}
+        >
+          <input
+            type="date"
+            value={dateRange.start}
+            onChange={(e) =>
+              setDateRange({ ...dateRange, start: e.target.value })
+            }
+          />
+          <span
+            style={{
+              fontSize: "large",
+              fontWeight: "bold",
+            }}
+          >
+            to
+          </span>
+          <input
+            type="date"
+            value={dateRange.end}
+            min={dateRange.start || ""}
+            onChange={(e) =>
+              setDateRange({ ...dateRange, end: e.target.value })
+            }
+          />
+
+          {dateError && (
+            <p style={{ color: "red", fontSize: "0.9rem", marginTop: "5px" }}>
+              {dateError}
+            </p>
+          )}
+        </div>
+      )}
+
+      {filter === "year" && (
+        <select value={year} onChange={(e) => setYear(e.target.value)}>
+          <option value="" disabled>
+            Select Year
+          </option>
+          {years.map((yr) => (
+            <option key={yr} value={yr}>
+              {yr}
+            </option>
+          ))}
+        </select>
+      )}
+
       <select
         id="maj_filter"
         name="maj_filter"
@@ -95,76 +162,6 @@ const Filter = () => {
         <option value="Credit">Credit</option>
         <option value="Debit">Debit</option>
       </select>
-
-      {filter === "category" && (
-        <select value={category} onChange={(e) => setCategory(e.target.value)}>
-          <option value="" disabled>
-            Select Category
-          </option>
-          <option value="Entertainment">Entertainment</option>
-          <option value="Travel">Travel</option>
-          <option value="Education">Education</option>
-          <option value="Hospital">Hospital</option>
-          <option value="Salary">Salary</option>
-          <option value="Custom">Custom</option>
-        </select>
-      )}
-
-      {filter === "custom" && (
-        <form className={form_classes.form}>
-          <div
-            style={{
-              margin: "20px",
-              display: "flex",
-              alignItems: "center",
-              gap: "10px",
-            }}
-          >
-            <input
-              type="date"
-              value={dateRange.start}
-              onChange={(e) =>
-                setDateRange({ ...dateRange, start: e.target.value })
-              }
-            />
-            <span
-              style={{
-                fontSize: "large",
-                fontWeight: "bold",
-              }}
-            >
-              to
-            </span>
-            <input
-              type="date"
-              value={dateRange.end}
-              min={dateRange.start || ""}
-              onChange={(e) =>
-                setDateRange({ ...dateRange, end: e.target.value })
-              }
-            />
-          </div>
-
-          {dateError && (
-            <p style={{ color: "red", fontSize: "0.9rem", marginTop: "5px" }}>
-              {dateError}
-            </p>
-          )}
-        </form>
-      )}
-
-      {filter === "year" && (
-        <select value={year} onChange={(e) => setYear(e.target.value)}>
-          <option value="" disabled>
-            Select Year
-          </option>
-          {years.map((yr) => (
-            <option key={yr} value={yr}>
-              {yr}
-            </option>
-          ))}
-        </select>
-      )}
     </div>
   );
 };

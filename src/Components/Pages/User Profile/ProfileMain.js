@@ -5,10 +5,11 @@ import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import ExpenseMain from "./Expenses/ExpensesMain";
 import { firebaseUrl } from "../../../Redux store/ExpenseSlice";
-import head_class from "./../../UI/CSS/Head.module.css";
+import head_class from "./../../UI/CSS/Profile.module.css";
 import { fetchUserProfile } from "../../../Redux store/ProfileActions";
 import { fetchUserData } from "../../../Redux store/ExpenseActions";
 import { fetchUserId } from "../../../Redux store/AuthActions";
+import { AuthAction } from "../../../Redux store/AuthSlice";
 
 const ProfileMain = () => {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ const ProfileMain = () => {
       navigate("/");
       return;
     }
-
+    dispatch(AuthAction.userAuthenticated(true));
     dispatch(fetchUserId(token)).then((id) => {
       dispatch(fetchUserProfile(token));
       dispatch(fetchUserData(firebaseUrl, id));

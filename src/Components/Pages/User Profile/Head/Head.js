@@ -171,6 +171,25 @@ const Head = () => {
         <span></span>
         <span></span>
         <span></span>
+        <span
+          style={{
+            whiteSpace: "nowrap",
+            display: "flex",
+            alignItems: "center",
+            padding: "2px 10px",
+            fontSize: "large",
+            fontWeight: "bold",
+            color: "rgb(253,193,81)",
+          }}
+        >
+          Dark mode{" "}
+          <Switch
+            checked={mode}
+            onChange={(e) => dispatch(setDarkModeUpdate(!mode, userId))}
+            className="btn btn-outline-warning m-2"
+            color="warning"
+          />
+        </span>
         <span>
           {PremCheck > 10000 && (
             <span>
@@ -204,25 +223,6 @@ const Head = () => {
           >
             <img src={chart_icon} alt="Chart" height={30} />
           </button>
-        </span>
-        <span
-          style={{
-            whiteSpace: "nowrap",
-            display: "flex",
-            alignItems: "center",
-            padding: "2px 10px",
-            fontSize: "large",
-            fontWeight: "bold",
-            color: "rgb(253,193,81)",
-          }}
-        >
-          Dark mode{" "}
-          <Switch
-            checked={mode}
-            onChange={(e) => dispatch(setDarkModeUpdate(!mode, userId))}
-            className="btn btn-outline-warning m-2"
-            color="warning"
-          />
         </span>
         <span className="position-relative gap-5 d-inline-block">
           <input
