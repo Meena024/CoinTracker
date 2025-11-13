@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
-import edit_icon from "../../../../Assets/Edit_icon1.png";
+import edit_icon from "../../../../Assets/edit_icon.svg";
+import chart_icon from "../../../../Assets/chart_icon.svg";
+import download_icon from "../../../../Assets/download_icon.png";
 import head_classes from "../../../UI/CSS/Head.module.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,12 +10,35 @@ import { ModalActions } from "../../../../Redux store/ModalSlice";
 import { ExpenseActions } from "../../../../Redux store/ExpenseSlice";
 import { MiscActions } from "../../../../Redux store/MiscSlice";
 import { ProfileActions } from "../../../../Redux store/ProfileSlice";
+import Switch from "@mui/material/Switch";
+import {
+  setDarkModeUpdate,
+  setPremiumUpdate,
+} from "../../../../Redux store/MiscActions";
+
 const Head = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const name = useSelector((state) => state.profile.name);
   const pictureUrl = useSelector((state) => state.profile.profileUrl);
+  const isPremium = useSelector((state) => state.misc.premium);
+  const mode = useSelector((state) => state.misc.darkMode);
+
+  const searchedExpenses = useSelector(
+    (state) => state.expense.searchedExpenses
+  );
+  const expenses = useSelector((state) => state.expense.expenses);
+  const userId = useSelector((state) => state.auth.userId);
+
+  const totalAmount = searchedExpenses.reduce(
+    (acc, curr) =>
+      curr.type === "Credit"
+        ? acc + Number(curr.amount)
+        : acc - Number(curr.amount),
+    0
+  );
+
   const filteredExpenses = useSelector(
     (state) => state.expense.filteredExpenses
   );
@@ -70,17 +95,60 @@ const Head = () => {
     dispatch(ModalActions.setModal());
   };
 
+  const chartHandler = () => {
+    dispatch(ModalActions.setModalContent("Chart"));
+    dispatch(ModalActions.setModal());
+  };
+
+  const downloadHandler = () => {
+    const csvRows = [
+      ["Filtered transactions"],
+      ["Date", "Amount", "Category", "Custom", "Description", "Type"],
+      ...searchedExpenses.map(
+        ({ date, amount, category, cust_cat, description, type }) => [
+          date,
+          amount,
+          category,
+          cust_cat,
+          description,
+          type,
+        ]
+      ),
+      [],
+      ["Net Balance:", totalAmount],
+    ];
+
+    const csvContent = csvRows.map((row) => row.join(",")).join("\n");
+    const blob = new Blob([csvContent], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "expenses.csv";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };
+
+  const PremCheck = expenses.reduce(
+    (acc, curr) => acc + Number(curr.amount),
+    0
+  );
+  if (expenses.length && PremCheck < 10000) {
+    console.log("PremCheck < 10000");
+    dispatch(setPremiumUpdate(false, userId));
+  }
+
   return (
     <div className={head_classes.head_light}>
       <div className={head_classes.head_content}>
-        <span className="d-flex justifyContent gap-5 align-items-center">
+        <span className="d-flex justifyContent gap-5 align-items-left">
           {pictureUrl && (
             <img
               src={pictureUrl}
               alt="Profile"
               height={50}
               width={50}
-              className="rounded"
+              className="rounded border white"
             />
           )}
 
@@ -89,11 +157,73 @@ const Head = () => {
             <h6>When you track it, you control it.</h6>
           </div>
 
-          <button className="p-2" onClick={editHandler}>
+          <button
+            className="p-1"
+            style={{ backgroundColor: "rgb(253, 193, 81)" }}
+            onClick={editHandler}
+          >
             <img src={edit_icon} alt="Edit Profile" height={30} />
           </button>
         </span>
-
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span>
+          {PremCheck > 10000 && (
+            <span>
+              {!isPremium && (
+                <button
+                  onClick={() => dispatch(setPremiumUpdate(true, userId))}
+                >
+                  Buy Premium
+                </button>
+              )}
+              {isPremium && (
+                <button
+                  className="p-1"
+                  style={{ backgroundColor: "rgb(253, 193, 81)" }}
+                  onClick={downloadHandler}
+                >
+                  <img
+                    src={download_icon}
+                    title="Download"
+                    alt="download"
+                    height={30}
+                  />
+                </button>
+              )}
+            </span>
+          )}{" "}
+          <button
+            className="p-1"
+            style={{ backgroundColor: "rgb(253, 193, 81)" }}
+            onClick={chartHandler}
+          >
+            <img src={chart_icon} alt="Chart" height={30} />
+          </button>
+        </span>
+        <span
+          style={{
+            whiteSpace: "nowrap",
+            display: "flex",
+            alignItems: "center",
+            padding: "2px 10px",
+            fontSize: "large",
+            fontWeight: "bold",
+            color: "rgb(253,193,81)",
+          }}
+        >
+          Dark mode{" "}
+          <Switch
+            checked={mode}
+            onChange={(e) => dispatch(setDarkModeUpdate(!mode, userId))}
+            className="btn btn-outline-warning m-2"
+            color="warning"
+          />
+        </span>
         <span className="position-relative gap-5 d-inline-block">
           <input
             type="text"
@@ -115,7 +245,6 @@ const Head = () => {
             ×
           </button>
         </span>
-
         <span>
           <button onClick={logoutHandler}>Logout</button>
         </span>

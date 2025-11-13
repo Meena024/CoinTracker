@@ -7,7 +7,7 @@
   right: 0;
   width: 100vw; /* ✅ Force full viewport width */
   z-index: 999;
-  height: 50px;
+  height: 55px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -15,4 +15,5 @@
   font-family: "Merriweather", serif;
   margin: 0;
   gap: 10px;
+  border-bottom: 3px solid var(--base-color);
 }
