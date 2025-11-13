@@ -4,6 +4,10 @@ import { useNavigate } from "react-router";
 import Card from "../../UI/Card/Card";
 import { AuthAction } from "../../../Redux store/AuthSlice";
 import { useDispatch } from "react-redux";
+import { fetchUserId } from "../../../Redux store/AuthActions";
+import { fetchUserProfile } from "../../../Redux store/ProfileActions";
+import { fetchUserData } from "../../../Redux store/ExpenseActions";
+import { firebaseUrl } from "../../../Redux store/ExpenseSlice";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -34,7 +38,7 @@ const Login = () => {
     localStorage.setItem("refreshToken", data.refresh_token);
     localStorage.setItem("tokenExpiry", Date.now() + data.expires_in * 1000);
 
-    dispatch(AuthAction.setIdToken(data.idToken));
+    dispatch(AuthAction.setIdToken(data.id_token));
 
     return data.id_token;
   }
@@ -54,6 +58,8 @@ const Login = () => {
   const loginHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setError(null);
+
     try {
       const response = await fetch(
         `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAdGYjLFC5DIrMp-l1ZEpgi-d1ntGdDqt0`,
@@ -74,7 +80,13 @@ const Login = () => {
       localStorage.setItem("refreshToken", data.refreshToken);
       localStorage.setItem("tokenExpiry", Date.now() + data.expiresIn * 1000);
 
-      dispatch(AuthAction.userAuthenticated());
+      dispatch(AuthAction.userAuthenticated(true));
+
+      const id = await dispatch(fetchUserId(data.idToken));
+      await Promise.all([
+        dispatch(fetchUserProfile(data.idToken)),
+        dispatch(fetchUserData(firebaseUrl, id)),
+      ]);
 
       scheduleTokenRefresh();
       navigate("/UserProfile");
