@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { AuthAction } from "../../../Redux store/AuthSlice";
-import { fetchUserId } from "../../../Redux store/AuthActions";
-import { fetchUserProfile } from "../../../Redux store/ProfileActions";
+import { fetchAuthData } from "../../../Redux store/AuthActions";
 import { fetchUserData } from "../../../Redux store/ExpenseActions";
 import { firebaseUrl } from "../../../Redux store/ExpenseSlice";
 
@@ -18,9 +17,7 @@ export const useAuthInitializer = () => {
     }
 
     dispatch(AuthAction.userAuthenticated(true));
-    dispatch(AuthAction.setIdToken(token));
-    dispatch(fetchUserId(token)).then((id) => {
-      dispatch(fetchUserProfile(token));
+    dispatch(fetchAuthData(token)).then((id) => {
       dispatch(fetchUserData(firebaseUrl, id));
     });
   }, [dispatch]);

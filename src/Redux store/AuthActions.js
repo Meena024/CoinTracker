@@ -1,6 +1,7 @@
 import { AuthAction } from "./AuthSlice";
+import { ProfileActions } from "./ProfileSlice";
 
-export const fetchUserId = (token) => {
+export const fetchAuthData = (token) => {
   return async (dispatch) => {
     try {
       const response = await fetch(
@@ -12,17 +13,35 @@ export const fetchUserId = (token) => {
         }
       );
 
+      if (!response.ok) {
+        throw new Error(`HTTP error ${response.status}`);
+      }
+
       const data = await response.json();
-      if (!data.users || !data.users[0]) {
+
+      const user = data?.users?.[0];
+      if (!user) {
         console.warn("User not found");
         return null;
       }
 
-      const userId = data.users[0].localId;
+      dispatch(AuthAction.setIdToken(token));
+      // --- Update Auth slice ---
+      const userId = user.localId;
       dispatch(AuthAction.setUserId(userId));
-      return userId;
+      // --- Update Profile slice ---
+      dispatch(ProfileActions.setName(user.displayName || null));
+      dispatch(ProfileActions.setProfileUrl(user.photoUrl || null));
+      dispatch(
+        ProfileActions.setEmailInfo({
+          email: user.email,
+          emailVerified: user.emailVerified,
+        })
+      );
+
+      return user.localId;
     } catch (err) {
-      console.error("Failed to fetch userId", err);
+      console.error("Failed to fetch user data:", err);
       return null;
     }
   };

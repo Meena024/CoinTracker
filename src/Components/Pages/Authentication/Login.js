@@ -4,8 +4,7 @@ import { useNavigate } from "react-router";
 import Card from "../../UI/Card/Card";
 import { AuthAction } from "../../../Redux store/AuthSlice";
 import { useDispatch } from "react-redux";
-import { fetchUserId } from "../../../Redux store/AuthActions";
-import { fetchUserProfile } from "../../../Redux store/ProfileActions";
+import { fetchAuthData } from "../../../Redux store/AuthActions";
 import { fetchUserData } from "../../../Redux store/ExpenseActions";
 import { firebaseUrl } from "../../../Redux store/ExpenseSlice";
 
@@ -18,42 +17,42 @@ const Login = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  async function getValidIdToken() {
-    const refreshToken = localStorage.getItem("refreshToken");
-    if (!refreshToken) return null;
+  // async function getValidIdToken() {
+  //   const refreshToken = localStorage.getItem("refreshToken");
+  //   if (!refreshToken) return null;
 
-    const res = await fetch(
-      "https://securetoken.googleapis.com/v1/token?key=AIzaSyCdDyLfXnyTrvbTA4whPdjq4GY3KqZ8dWc",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: `grant_type=refresh_token&refresh_token=${refreshToken}`,
-      }
-    );
-    const data = await res.json();
+  //   const res = await fetch(
+  //     "https://securetoken.googleapis.com/v1/token?key=AIzaSyCdDyLfXnyTrvbTA4whPdjq4GY3KqZ8dWc",
+  //     {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/x-www-form-urlencoded" },
+  //       body: `grant_type=refresh_token&refresh_token=${refreshToken}`,
+  //     }
+  //   );
+  //   const data = await res.json();
 
-    if (!res.ok) throw new Error(data.error?.message || "Token refresh failed");
+  //   if (!res.ok) throw new Error(data.error?.message || "Token refresh failed");
 
-    localStorage.setItem("token", data.id_token);
-    localStorage.setItem("refreshToken", data.refresh_token);
-    localStorage.setItem("tokenExpiry", Date.now() + data.expires_in * 1000);
+  //   localStorage.setItem("token", data.id_token);
+  //   localStorage.setItem("refreshToken", data.refresh_token);
+  //   localStorage.setItem("tokenExpiry", Date.now() + data.expires_in * 1000);
 
-    dispatch(AuthAction.setIdToken(data.id_token));
+  //   dispatch(AuthAction.setIdToken(data.id_token));
 
-    return data.id_token;
-  }
+  //   return data.id_token;
+  // }
 
-  function scheduleTokenRefresh() {
-    const expiry = parseInt(localStorage.getItem("tokenExpiry"), 10);
-    const timeout = expiry - Date.now() - 30000; // 30s before expiry
+  // function scheduleTokenRefresh() {
+  //   const expiry = parseInt(localStorage.getItem("tokenExpiry"), 10);
+  //   const timeout = expiry - Date.now() - 30000; // 30s before expiry
 
-    if (timeout > 0) {
-      setTimeout(async () => {
-        await getValidIdToken();
-        scheduleTokenRefresh();
-      }, timeout);
-    }
-  }
+  //   if (timeout > 0) {
+  //     setTimeout(async () => {
+  //       await getValidIdToken();
+  //       scheduleTokenRefresh();
+  //     }, timeout);
+  //   }
+  // }
 
   const loginHandler = async (e) => {
     e.preventDefault();
@@ -81,14 +80,11 @@ const Login = () => {
       localStorage.setItem("tokenExpiry", Date.now() + data.expiresIn * 1000);
 
       dispatch(AuthAction.userAuthenticated(true));
-      dispatch(AuthAction.setIdToken(data.idToken));
-      const id = await dispatch(fetchUserId(data.idToken));
-      await Promise.all([
-        dispatch(fetchUserProfile(data.idToken)),
-        dispatch(fetchUserData(firebaseUrl, id)),
-      ]);
+      dispatch(fetchAuthData(data.idToken)).then((id) => {
+        dispatch(fetchUserData(firebaseUrl, id));
+      });
 
-      scheduleTokenRefresh();
+      // scheduleTokenRefresh();
       navigate("/UserProfile");
     } catch (err) {
       setError(err.message);
