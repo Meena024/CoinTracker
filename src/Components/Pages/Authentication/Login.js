@@ -23,7 +23,7 @@ const Login = () => {
     if (!refreshToken) return null;
 
     const res = await fetch(
-      "https://securetoken.googleapis.com/v1/token?key=AIzaSyAdGYjLFC5DIrMp-l1ZEpgi-d1ntGdDqt0",
+      "https://securetoken.googleapis.com/v1/token?key=AIzaSyCdDyLfXnyTrvbTA4whPdjq4GY3KqZ8dWc",
       {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -62,7 +62,7 @@ const Login = () => {
 
     try {
       const response = await fetch(
-        `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAdGYjLFC5DIrMp-l1ZEpgi-d1ntGdDqt0`,
+        `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCdDyLfXnyTrvbTA4whPdjq4GY3KqZ8dWc`,
         {
           method: "POST",
           body: JSON.stringify({ email, password, returnSecureToken: true }),
@@ -81,7 +81,7 @@ const Login = () => {
       localStorage.setItem("tokenExpiry", Date.now() + data.expiresIn * 1000);
 
       dispatch(AuthAction.userAuthenticated(true));
-
+      dispatch(AuthAction.setIdToken(data.idToken));
       const id = await dispatch(fetchUserId(data.idToken));
       await Promise.all([
         dispatch(fetchUserProfile(data.idToken)),

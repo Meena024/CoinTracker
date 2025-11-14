@@ -18,6 +18,7 @@ export const useAuthInitializer = () => {
     }
 
     dispatch(AuthAction.userAuthenticated(true));
+    dispatch(AuthAction.setIdToken(token));
     dispatch(fetchUserId(token)).then((id) => {
       dispatch(fetchUserProfile(token));
       dispatch(fetchUserData(firebaseUrl, id));

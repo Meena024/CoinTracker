@@ -4,7 +4,7 @@ export const fetchUserProfile = (token) => {
   return async (dispatch) => {
     try {
       const response = await fetch(
-        `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyAdGYjLFC5DIrMp-l1ZEpgi-d1ntGdDqt0`,
+        `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyCdDyLfXnyTrvbTA4whPdjq4GY3KqZ8dWc`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -12,20 +12,28 @@ export const fetchUserProfile = (token) => {
         }
       );
 
+      if (!response.ok) {
+        throw new Error(`HTTP error ${response.status}`);
+      }
+
       const data = await response.json();
 
-      if (data.users && data.users[0]) {
-        const user = data.users[0];
-        const name = user.displayName || null;
-        const pictureUrl = user.photoUrl || null;
-
-        dispatch(ProfileActions.setName(name));
-        dispatch(ProfileActions.setProfileUrl(pictureUrl));
-      } else {
+      const user = data?.users?.[0];
+      if (!user) {
         console.error("No user found in response");
+        return;
       }
+
+      dispatch(ProfileActions.setName(user.displayName || null));
+      dispatch(ProfileActions.setProfileUrl(user.photoUrl || null));
+      dispatch(
+        ProfileActions.setEmailInfo({
+          email: user.email,
+          emailVerified: user.emailVerified,
+        })
+      );
     } catch (err) {
-      console.error("Failed to fetch user data", err);
+      console.error("Failed to fetch user profile:", err);
     }
   };
 };

@@ -35,7 +35,7 @@ const EditProfile = () => {
       const token = localStorage.getItem("token");
 
       const response = await fetch(
-        `https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyAdGYjLFC5DIrMp-l1ZEpgi-d1ntGdDqt0`,
+        `https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyCdDyLfXnyTrvbTA4whPdjq4GY3KqZ8dWc`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

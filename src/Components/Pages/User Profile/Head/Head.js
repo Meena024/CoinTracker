@@ -15,6 +15,7 @@ import {
   setDarkModeUpdate,
   setPremiumUpdate,
 } from "../../../../Redux store/MiscActions";
+import VerifyEmail from "../../Authentication/VerifyEmail";
 
 const Head = () => {
   const navigate = useNavigate();
@@ -30,6 +31,8 @@ const Head = () => {
   );
   const expenses = useSelector((state) => state.expense.expenses);
   const userId = useSelector((state) => state.auth.userId);
+  const idToken = useSelector((state) => state.auth.idToken);
+  const isVerified = useSelector((state) => state.profile.emailVerified);
 
   const totalAmount = searchedExpenses.reduce(
     (acc, curr) =>
@@ -134,7 +137,6 @@ const Head = () => {
     0
   );
   if (expenses.length && PremCheck < 10000) {
-    console.log("PremCheck < 10000");
     dispatch(setPremiumUpdate(false, userId));
   }
 
@@ -157,21 +159,35 @@ const Head = () => {
               onClick={() => zoomImageHandler()}
             />
           )}
-
           <div className={head_classes.nowrap_text}>
             <h4>Hello {name || "User"},</h4>
             <h6>When you track it, you control it.</h6>
           </div>
-
           <button
             className="p-1"
             style={{ backgroundColor: "rgb(253, 193, 81)" }}
             onClick={editHandler}
           >
-            <img src={edit_icon} alt="Edit Profile" height={30} />
+            <img
+              src={edit_icon}
+              alt="Edit Profile"
+              title="Edit Profile"
+              height={30}
+            />
           </button>
+          {!isVerified && (
+            <button
+              style={{
+                backgroundColor: "rgb(253, 193, 81)",
+                color: "black",
+              }}
+              onClick={() => VerifyEmail(idToken)}
+              title="Verify Email"
+            >
+              Verify
+            </button>
+          )}
         </span>
-        <span></span>
         <span></span>
         <span></span>
         <span></span>
@@ -214,7 +230,7 @@ const Head = () => {
                 >
                   <img
                     src={download_icon}
-                    title="Download"
+                    title="Download Transactions"
                     alt="download"
                     height={30}
                   />
@@ -227,7 +243,7 @@ const Head = () => {
             style={{ backgroundColor: "rgb(253, 193, 81)" }}
             onClick={chartHandler}
           >
-            <img src={chart_icon} alt="Chart" height={30} />
+            <img src={chart_icon} alt="Chart" title="View Chart" height={30} />
           </button>
         </span>
         <span className="position-relative gap-5 d-inline-block">

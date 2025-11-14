@@ -2,6 +2,7 @@ import form_classes from "../../UI/CSS/Form.module.css";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Card from "../../UI/Card/Card";
+import VerifyEmail from "./VerifyEmail";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -19,7 +20,7 @@ const SignUp = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAdGYjLFC5DIrMp-l1ZEpgi-d1ntGdDqt0`,
+          `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCdDyLfXnyTrvbTA4whPdjq4GY3KqZ8dWc`,
           {
             method: "POST",
             body: JSON.stringify({
@@ -42,31 +43,7 @@ const SignUp = () => {
         console.log("Sign Up Successfull! data:", data);
 
         //Verify email id
-
-        const verify_response = await fetch(
-          `https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyAdGYjLFC5DIrMp-l1ZEpgi-d1ntGdDqt0`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              requestType: "VERIFY_EMAIL",
-              idToken: data.idToken,
-            }),
-          }
-        );
-
-        const verify_email = await verify_response.json();
-
-        if (!verify_response.ok) {
-          throw new Error(
-            verify_email.error.message || "Failed to send verification email!"
-          );
-        }
-
-        alert("Verification email sent successfully!");
-
+        VerifyEmail(data.idToken);
         navigate("/");
       } catch (err) {
         setError(err.message);

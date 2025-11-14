@@ -12,7 +12,6 @@ const MiscSlice = createSlice({
     },
     setPremium(state, action) {
       state.premium = action.payload;
-      console.log("premium", action.payload);
     },
     reset(state) {
       state.darkMode = false;
