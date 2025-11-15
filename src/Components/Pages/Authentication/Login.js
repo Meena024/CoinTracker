@@ -76,8 +76,8 @@ const Login = () => {
       }
 
       localStorage.setItem("token", data.idToken);
-      localStorage.setItem("refreshToken", data.refreshToken);
-      localStorage.setItem("tokenExpiry", Date.now() + data.expiresIn * 1000);
+      // localStorage.setItem("refreshToken", data.refreshToken);
+      // localStorage.setItem("tokenExpiry", Date.now() + data.expiresIn * 1000);
 
       dispatch(AuthAction.userAuthenticated(true));
       dispatch(fetchAuthData(data.idToken)).then((id) => {

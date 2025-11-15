@@ -73,11 +73,9 @@ const Head = () => {
 
   const logoutHandler = async () => {
     try {
-      console.log("Logging out...");
-
       localStorage.removeItem("token");
-      localStorage.removeItem("refreshToken");
-      localStorage.removeItem("tokenExpiry");
+      // localStorage.removeItem("refreshToken");
+      // localStorage.removeItem("tokenExpiry");
 
       dispatch(AuthAction.reset());
       dispatch(ExpenseActions.reset());
@@ -93,7 +91,6 @@ const Head = () => {
   };
 
   const editHandler = () => {
-    console.log("Edit button clicked!");
     dispatch(ModalActions.setModalContent("EditProfile"));
     dispatch(ModalActions.setModal());
   };

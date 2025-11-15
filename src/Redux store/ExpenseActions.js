@@ -65,6 +65,7 @@ export const fetchUserData = (firebaseUrl, userId) => {
         return;
       }
 
+      console.log("Database Data:", data);
       // Extract expenses safely
       const expensesData = data.expense || {};
       const expenses = Object.entries(expensesData).map(([id, expense]) => ({

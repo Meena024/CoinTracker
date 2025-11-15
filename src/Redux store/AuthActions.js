@@ -25,6 +25,7 @@ export const fetchAuthData = (token) => {
         return null;
       }
 
+      console.log("Auth Data:", user);
       dispatch(AuthAction.setIdToken(token));
       // --- Update Auth slice ---
       const userId = user.localId;

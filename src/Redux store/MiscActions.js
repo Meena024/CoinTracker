@@ -15,13 +15,14 @@ export const setPremiumUpdate = (val, userId) => {
     }
 
     dispatch(MiscActions.setPremium(val));
+    console.log("Premium:", val ? "on" : "off");
   };
 };
 
 //  Update darkMode
 export const setDarkModeUpdate = (val, userId) => {
   return async (dispatch) => {
-    console.log("darkmode entered", val);
+    console.log("darkmode:", val ? "on" : "off");
     dispatch(MiscActions.setDarkMode(val));
     const response = await fetch(`${firebaseUrl}/${userId}/darkMode.json`, {
       method: "PUT",
@@ -32,6 +33,5 @@ export const setDarkModeUpdate = (val, userId) => {
     if (!response.ok) {
       throw new Error("Failed to update mode");
     }
-    console.log("dark mode exit");
   };
 };
